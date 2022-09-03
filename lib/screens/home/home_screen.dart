@@ -27,7 +27,11 @@ class HomeScreen extends StatelessWidget {
               'Categories',
               style: Theme.of(context).textTheme.headline6,
             ),
-            const Categories(),
+            SizedBox(
+              width: MediaQuery.of(context).size.width,
+              height: 50.sp,
+              child: const Categories(),
+            ),
             SizedBox(
               height: 5.h,
             ),

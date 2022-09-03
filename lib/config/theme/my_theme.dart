@@ -12,6 +12,11 @@ class MyTheme {
   static getThemeData({required bool isLight}) {
     return ThemeData(
       // main color (app bar,tabs..etc)
+      colorScheme: const ColorScheme.light().copyWith(
+        primary:  myBlack ,
+      ),
+
+       
       primaryColor: isLight ? LightThemeColors.primaryColor : DarkThemeColors.primaryColor,
       // secondary color (for checkbox,float button, radio..etc)
       accentColor: isLight ? LightThemeColors.accentColor : DarkThemeColors.accentColor,
@@ -55,6 +60,9 @@ class MyTheme {
 
       // textField theme
       inputDecorationTheme: MyStyles.getInputDecorationTheme(isLightTheme: isLight),
+
+      //dialog
+      dialogTheme: MyStyles.getDialogTheme(isLightTheme: isLight),
     );
   }
 

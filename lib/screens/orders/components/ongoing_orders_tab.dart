@@ -14,18 +14,20 @@ class OngoingOrdersTab extends GetView<OrdersController> {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 5.h),
-      child: ListView.builder(
-        itemCount: controller.onGoingOrders.length,
-        itemBuilder: (context, index) {
-          final order = controller.onGoingOrders[index];
-          return OrderItemTile(
-            size: order.chosenSize!,
-            price: order.price,
-            quantity: order.quantity,
-            status: order.status,
-          );
-        },
-      ),
+      child: controller.onGoingOrders.isEmpty
+          //TODO put an image
+          ? const Center(
+              child: Text('You dont have any onGoing orders'),
+            )
+          : ListView.builder(
+              itemCount: controller.onGoingOrders.length,
+              itemBuilder: (context, index) {
+                final order = controller.onGoingOrders[index];
+                return OrderItemTile(
+              order:order,
+                );
+              },
+            ),
     );
   }
 }

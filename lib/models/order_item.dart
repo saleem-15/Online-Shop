@@ -1,6 +1,7 @@
 import '../screens/orders/components/order_item.dart';
 
 class OrderItem {
+  String orderId;
   String productId;
   String productName;
   double price;
@@ -15,6 +16,7 @@ class OrderItem {
   String? chosenSize;
 
   OrderItem({
+    required this.orderId,
     required this.productId,
     required this.productName,
     required this.price,

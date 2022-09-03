@@ -2,23 +2,31 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:my_shop/screens/cart/cart_controller.dart';
-import 'package:my_shop/screens/cart/cart_screen.dart';
-import 'package:my_shop/screens/checkout/checkout_screen.dart';
-import 'package:my_shop/screens/home/home_screen.dart';
-import 'package:my_shop/screens/product/product_controller.dart';
-import 'package:my_shop/screens/product/product_details_screen.dart';
-import 'package:my_shop/screens/shipping/shipping_address.dart';
-import 'package:my_shop/screens/shipping/shipping_binding.dart';
 
 import 'config/theme/light_theme_colors.dart';
 import 'config/theme/my_theme.dart';
+import '../screens/cart/cart_controller.dart';
+import '../screens/cart/cart_screen.dart';
+import '../screens/checkout/checkout_screen.dart';
+import '../screens/home/home_screen.dart';
+import '../screens/product/product_controller.dart';
+import '../screens/product/product_details_screen.dart';
+import '../screens/search/search_screen.dart';
+import '../screens/shipping/shipping_address.dart';
+import '../screens/shipping/shipping_binding.dart';
+import 'screens/auth/sign_in/signin_controller.dart';
+import 'screens/auth/sign_up/signup_controller.dart';
 import 'screens/cart/checkout_bindings.dart';
 import 'screens/checkout/checkout_controller.dart';
 import 'screens/home/home_controller.dart';
 import 'screens/orders/orders_controller.dart';
 import 'screens/orders/orders_screen.dart';
 import 'screens/product/product_binding.dart';
+import 'screens/profile/profile_controller.dart';
+import 'screens/profile/profile_screen.dart';
+import 'screens/search/search_controller.dart';
+import 'screens/track_order/track_order_controller.dart';
+import 'screens/user_info/user_info_controller.dart';
 import 'storage/my_shared_pref.dart';
 
 Future<void> main() async {
@@ -37,6 +45,12 @@ class MyApp extends StatelessWidget {
     Get.lazyPut(() => CartController());
     Get.lazyPut(() => CheckoutController());
     Get.lazyPut(() => OrdersController());
+    Get.lazyPut(() => SearchController(), fenix: true);
+    Get.lazyPut(() => SigninController(), fenix: true);
+    Get.lazyPut(() => SignupController(), fenix: true);
+    Get.lazyPut(() => TrackOrderController(), fenix: true);
+    Get.lazyPut(() => ProfileController(), fenix: true);
+    Get.lazyPut(() => UserInfoController(), fenix: true);
 
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
@@ -50,6 +64,10 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'My Shop',
         getPages: [
+          GetPage(
+            name: '/search_screen',
+            page: () => const SearchScreen(),
+          ),
           GetPage(
             name: '/shipping_addresses',
             page: () => const ShippingAddressScreen(),
@@ -121,6 +139,8 @@ class MyApp extends StatelessWidget {
             ),
             body: Builder(
               builder: (context) {
+                // return const SignupScreen();
+                // return const ProfileScreen();
                 switch (selectedIndex.value) {
                   case 0:
                     return const HomeScreen();
@@ -128,8 +148,14 @@ class MyApp extends StatelessWidget {
                   case 1:
                     return const CartScreen();
 
-                  default:
+                  case 2:
                     return const OrdersScreen();
+
+                  case 3:
+                    return const ProfileScreen();
+
+                  default:
+                    return const HomeScreen();
                 }
               },
             ),

@@ -51,6 +51,10 @@ class CartController extends GetxController {
     ).obs,
   ].obs;
 
+  void addNewCartITem(CartItem item) {
+    cartItems.add(item.obs);
+  }
+
   void reduceQuantityByOne(String productId) {
     final cartItem = cartItems.firstWhere((cartItem) => cartItem.value.productId == productId);
     if (cartItem.value.quantity == 1) {
@@ -94,6 +98,5 @@ class CartController extends GetxController {
     Get.find<CheckoutController>().setOrdersList(cartItems);
 
     Get.toNamed('/checkout');
-
   }
 }

@@ -3,99 +3,76 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shimmer/shimmer.dart';
 
 class ProductLoadingSkeleton extends StatelessWidget {
-  const ProductLoadingSkeleton({Key? key}) : super(key: key);
+  const ProductLoadingSkeleton({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Shimmer.fromColors(
-      baseColor: Colors.grey[300]!,
-      highlightColor: Colors.grey[100]!,
-      enabled: true,
-      child: ListView.builder(
-        itemBuilder: (_, __) => Padding(
-          padding: const EdgeInsets.only(bottom: 8.0),
-          child: Row(
+    return GridView.builder(
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        crossAxisSpacing: 5.w,
+        mainAxisSpacing: 10.sp,
+        //  height of each tile
+        mainAxisExtent: 270.sp,
+      ),
+      itemCount: 8,
+      itemBuilder: (_, __) => Shimmer.fromColors(
+        baseColor: Colors.grey[300]!,
+        highlightColor: Colors.grey[100]!,
+        enabled: true,
+        child: Container(
+          width: 162.w,
+          height: 230,
+          clipBehavior: Clip.antiAlias,
+          decoration: BoxDecoration(borderRadius: BorderRadius.circular(12.r)),
+          child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
+            children: [
               Container(
-                width: 48.0,
-                height: 48.0,
-                color: Colors.white,
+                height: 230,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12.r),
+                ),
               ),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 8.0),
-              ),
-              Expanded(
+              SizedBox(height: 6.h),
+              Padding(
+                padding: EdgeInsets.only(
+                  top: 5.sp,
+                  right: 5.sp,
+                  bottom: 5.sp,
+                ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
+                  children: [
                     Container(
                       width: double.infinity,
                       height: 8.0,
-                      color: Colors.white,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(12.r),
+                      ),
                     ),
-                    const Padding(
-                      padding: EdgeInsets.symmetric(vertical: 2.0),
+                    SizedBox(
+                      height: 5.h,
                     ),
                     Container(
                       width: double.infinity,
                       height: 8.0,
-                      color: Colors.white,
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.symmetric(vertical: 2.0),
-                    ),
-                    Container(
-                      width: 40.0,
-                      height: 8.0,
-                      color: Colors.white,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(12.r),
+                      ),
                     ),
                   ],
                 ),
-              )
+              ),
             ],
           ),
         ),
-        itemCount: 6,
       ),
-    );
-
-    return Column(
-      children: [
-        Shimmer.fromColors(
-          period: const Duration(seconds: 10),
-          // direction: ShimmerDirection.ttb,
-          baseColor: Colors.grey[300]!,
-          highlightColor: Colors.grey[200]!,
-          child: Container(
-            width: 157.w,
-            height: 100.h,
-            decoration: BoxDecoration(
-              //color of container isn't important
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(12.r),
-            ),
-          ),
-        ),
-        SizedBox(height: 6.h),
-        Shimmer.fromColors(
-          baseColor: Colors.grey[300]!,
-          highlightColor: Colors.grey[200]!,
-          child: Container(
-            width: 100.w,
-            color: Colors.red,
-          ),
-        ),
-        SizedBox(height: 5.h),
-        Shimmer.fromColors(
-          baseColor: Colors.grey[300]!,
-          highlightColor: Colors.grey[200]!,
-          child: Container(
-            width: 100.w,
-            color: Colors.white,
-          ),
-        ),
-      ],
     );
   }
 }

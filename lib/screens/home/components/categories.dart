@@ -8,31 +8,32 @@ class Categories extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
-    final List<RxBool> isSelected = controller.isSelected;
-
-    return Wrap(
-      children: List.generate(
-        controller.categories.length,
-        (index) => Padding(
-          padding: EdgeInsets.only(left: 10.w),
-          child: Obx(
-            () => ChoiceChip(
-              selected: isSelected[index].value,
-              onSelected: (value) {
-                for (var chip in isSelected) {
-                  chip.value = false;
-                }
-                isSelected[index].value = value;
-              },
-
-              // selectedColor: Colors.black,
-              label: Text(
-                controller.categories[index],
+    return Obx(
+      () => controller.isLoadingCategories.isTrue
+          ? const SizedBox.shrink()
+          : ListView.builder(
+              padding: EdgeInsets.zero,
+              physics: const BouncingScrollPhysics(),
+              scrollDirection: Axis.horizontal,
+              itemCount: controller.categories.length,
+              itemBuilder: (context, index) => Padding(
+                padding: EdgeInsets.only(left: 10.w),
+                child: Obx(
+                  () {
+                    final isSelected = controller.selectedCategoryIndex.value == index;
+                    return ChoiceChip(
+                      selected: isSelected,
+                      onSelected: (value) {
+                        controller.selectedCategoryIndex(index);
+                      },
+                      label: Text(
+                        controller.categories[index].name,
+                      ),
+                    );
+                  },
+                ),
               ),
             ),
-          ),
-        ),
-      ),
     );
   }
 }

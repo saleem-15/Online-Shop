@@ -22,11 +22,54 @@ class ProductDetailsScreen extends GetView<ProductController> {
       appBar: AppBar(
         leading: IconButton(
           onPressed: () => Get.back(),
-          icon: Icon(
-            Icons.arrow_back_ios_rounded,
-            color: Theme.of(context).iconTheme.color,
+          icon: Container(
+            padding: EdgeInsets.all(6.sp),
+            decoration: BoxDecoration(
+              color: Colors.white.withOpacity(.8),
+              shape: BoxShape.circle,
+            ),
+            child: ImageIcon(
+              const AssetImage('assets/icons/arrow_back.png'),
+              color: product.value.isFavorite ? Colors.red : Theme.of(context).iconTheme.color,
+              size: 25.sp,
+            ),
+            // Icon(
+            //   Icons.arrow_back,
+            //   color: Theme.of(context).iconTheme.color,
+            // ),
           ),
         ),
+        actions: [
+          Container(
+            width: 37.sp,
+            height: 37.sp,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              color: Colors.white.withOpacity(.8),
+              shape: BoxShape.circle,
+            ),
+            child: Obx(
+              () => IconButton(
+                onPressed: () => controller.toggleFavorite(),
+                color: Colors.green,
+                icon:
+                    //  Icon(
+                    //   product.value.isFavorite ? Icons.favorite : Icons.favorite_border_outlined,
+                    //   color: product.value.isFavorite ? Colors.red : Theme.of(context).iconTheme.color,
+                    //   size: 30.sp,
+                    // ),
+                    ImageIcon(
+                  AssetImage('assets/icons/${product.value.isFavorite ? 'filled_heart' : 'heart'}.png'),
+                  color: product.value.isFavorite ? Colors.red : Theme.of(context).iconTheme.color,
+                  size: 25.sp,
+                ),
+              ),
+            ),
+          ),
+          SizedBox(
+            width: 10.w,
+          )
+        ],
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -41,7 +84,7 @@ class ProductDetailsScreen extends GetView<ProductController> {
                 children: [
                   ImageSlideshow(
                     indicatorColor: Theme.of(context).primaryColor,
-                    height: 400.h,
+                    height: 350.h,
                     children: controller.product.value.images
                         .map(
                           (imageURl) => Image.network(
@@ -71,11 +114,47 @@ class ProductDetailsScreen extends GetView<ProductController> {
                   top: 17.h,
                   bottom: 20.h,
                 ),
-                width: 400.w,
-                height: 90.sp,
-                child: ElevatedButton(
-                  onPressed: controller.addToCart,
-                  child: const Text('Add to cart'),
+                child: Column(
+                  children: [
+                    Divider(
+                      height: 30.sp,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Total price',
+                              style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: 12),
+                            ),
+                            SizedBox(
+                              height: 5.sp,
+                            ),
+                            Obx(
+                              () => Text(
+                                '\$${controller.totalCartItemsPrice.toStringAsFixed(2)}',
+                                style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 22),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Flexible(
+                          child: SizedBox(
+                            width: 30.w,
+                          ),
+                        ),
+                        SizedBox(
+                          width: 220.w,
+                          child: ElevatedButton(
+                            onPressed: controller.addToCart,
+                            child: const Text('Add to cart'),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               ),
             ],

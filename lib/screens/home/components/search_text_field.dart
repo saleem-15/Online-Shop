@@ -9,7 +9,8 @@ class SearchTextField extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      controller: controller.searchController,
+      onTap: () => Get.toNamed('/search_screen'),
+      readOnly: true,
       decoration: InputDecoration(
         hintText: 'Search',
         prefixIcon: Padding(

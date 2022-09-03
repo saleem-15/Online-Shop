@@ -183,6 +183,37 @@ class MyStyles {
         color: isLightTheme ? LightThemeColors.dividerColor : DarkThemeColors.dividerColor,
       );
 
+  static getInputDecorationTheme({required bool isLightTheme}) => InputDecorationTheme(
+        filled: true,
+        fillColor: searchTextfieldColor,
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(13.r),
+          borderSide: const BorderSide(color: searchTextfieldColor, width: 1.5),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(13.r),
+          borderSide: const BorderSide(color: searchTextfieldColor, width: 1.5),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(13.r),
+          borderSide: const BorderSide(color: searchTextfieldColor, width: 1.5),
+        ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(13.r),
+          borderSide: const BorderSide(color: searchTextfieldColor, width: 1.5),
+        ),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(13.r),
+          borderSide: const BorderSide(color: searchTextfieldColor, width: 1.5),
+        ),
+      );
+
+  static getDialogTheme({required bool isLightTheme}) => DialogTheme(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20.r),
+        ),
+      );
+
   //*************************** My Custom Styles For a Specific Use Cases  ***********************************
 
   static ButtonStyle getGreyElevatedButtonStyle() => ButtonStyle(
@@ -203,21 +234,21 @@ class MyStyles {
           ),
         ),
       );
+  static ButtonStyle getSignupWithGoogleButtonStyle() => ButtonStyle(
+        fixedSize: MaterialStateProperty.all(Size(330.w, 60)),
+        backgroundColor: MaterialStateProperty.all(LightThemeColors.scaffoldBackgroundColor),
 
-  static getInputDecorationTheme({required bool isLightTheme}) => InputDecorationTheme(
-        filled: true,
-        fillColor: searchTextfieldColor,
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(13.r),
-          borderSide: const BorderSide(color: searchTextfieldColor, width: 1.5),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(13.r),
-          borderSide: const BorderSide(color: searchTextfieldColor, width: 1.5),
-        ),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(13.r),
-          borderSide: const BorderSide(color: searchTextfieldColor, width: 1.5),
+        /// Splash color
+        overlayColor: MaterialStateProperty.all(Colors.grey[200]),
+        elevation: MaterialStateProperty.all(0),
+        shape: MaterialStateProperty.all(
+          RoundedRectangleBorder(
+            side: BorderSide(
+              width: .2.sp,
+              color: LightThemeColors.dividerColor,
+            ),
+            borderRadius: BorderRadius.circular(15.r),
+          ),
         ),
       );
 }

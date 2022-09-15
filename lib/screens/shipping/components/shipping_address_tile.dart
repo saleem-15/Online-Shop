@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 
 import '../../../config/theme/light_theme_colors.dart';
 import '../../../models/shipping_address.dart';
-import '../shipping_controller.dart';
+import '../controllers/shipping_controller.dart';
 
 class ShippingAddressTile extends GetView<ShippingController> {
   const ShippingAddressTile({
@@ -25,7 +25,7 @@ class ShippingAddressTile extends GetView<ShippingController> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => controller.setSelectedAddressIndex(myIndex),
+      onTap: () => controller.onAddressTilePressed(myIndex),
       child: Card(
         margin: EdgeInsets.symmetric(
           vertical: 10.h,
@@ -73,15 +73,15 @@ class ShippingAddressTile extends GetView<ShippingController> {
                       SizedBox(
                         width: 10.sp,
                       ),
-                      if(isDefaultShippingAddress)
-                      Container(
-                        padding: EdgeInsets.symmetric(horizontal: 7.sp, vertical: 5.sp),
-                        decoration: BoxDecoration(
-                          color: searchTextfieldColor,
-                          borderRadius: BorderRadius.circular(8.r),
+                      if (address.isDefaultAddress)
+                        Container(
+                          padding: EdgeInsets.symmetric(horizontal: 7.sp, vertical: 5.sp),
+                          decoration: BoxDecoration(
+                            color: searchTextfieldColor,
+                            borderRadius: BorderRadius.circular(8.r),
+                          ),
+                          child: const Text('Default'),
                         ),
-                        child: const Text('Default'),
-                      ),
                     ],
                   ),
                   SizedBox(
@@ -94,13 +94,14 @@ class ShippingAddressTile extends GetView<ShippingController> {
                 ],
               ),
               const Spacer(),
-              Obx(
-                () => Radio(
-                  value: myIndex,
-                  groupValue: selectedIndex.value,
-                  onChanged: (value) => controller.selectedAddressIndex(myIndex),
-                ),
-              )
+              if (!controller.isEditingMode)
+                Obx(
+                  () => Radio(
+                    value: myIndex,
+                    groupValue: selectedIndex.value,
+                    onChanged: (value) => controller.selectedAddressIndex(myIndex),
+                  ),
+                )
             ],
           ),
         ),

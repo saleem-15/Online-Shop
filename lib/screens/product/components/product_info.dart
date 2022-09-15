@@ -27,7 +27,7 @@ class ProductInfo extends GetView<ProductController> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              'Venesa Long Shirt',
+              product.name,
               style: Theme.of(context).textTheme.headline4,
             ),
             Text(

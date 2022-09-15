@@ -41,8 +41,7 @@ class UserInfoScreen extends GetView<UserInfoController> {
                       child: GetBuilder<UserInfoController>(
                         assignId: true,
                         id: 'user_image',
-                        builder: (controller) => 
-                         Stack(
+                        builder: (controller) => Stack(
                           children: [
                             controller.image == null
                                 ? CircleAvatar(
@@ -56,7 +55,7 @@ class UserInfoScreen extends GetView<UserInfoController> {
                             Positioned(
                               bottom: 3.sp,
                               right: 3.sp,
-                      
+
                               // TODO make the background of the icon white (with photoshop)
                               child: editIcon(context),
                             ),
@@ -92,7 +91,6 @@ class UserInfoScreen extends GetView<UserInfoController> {
                     ),
                     TextFormField(
                       focusNode: controller.dateFocus,
-                      onTap: controller.pickDate,
                       // readOnly: true,
                       controller: controller.birthDateController,
                       decoration: const InputDecoration(
@@ -120,7 +118,7 @@ class UserInfoScreen extends GetView<UserInfoController> {
                       height: 15.h,
                     ),
                     TextFormField(
-                      controller: controller.nameController,
+                      controller: controller.phoneNumberController,
                       decoration: const InputDecoration(
                         hintText: 'Phone Number',
                       ),
@@ -133,6 +131,9 @@ class UserInfoScreen extends GetView<UserInfoController> {
               ElevatedButton(
                 onPressed: controller.updateProfileInfo,
                 child: Text(controller.isEditingMode ? 'Update' : 'Continue'),
+              ),
+              const SizedBox(
+                height: 25,
               ),
             ],
           ),

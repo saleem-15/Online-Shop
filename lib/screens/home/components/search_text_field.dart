@@ -8,23 +8,25 @@ class SearchTextField extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      onTap: () => Get.toNamed('/search_screen'),
-      readOnly: true,
-      decoration: InputDecoration(
-        hintText: 'Search',
-        prefixIcon: Padding(
-          padding: const EdgeInsets.only(left: 10),
-          child: IconButton(
-            splashRadius: 15,
-            icon: Image.asset(
-              'assets/icons/search.png',
-              scale: 1.8,
-              fit: BoxFit.scaleDown,
-              width: 30.sp,
-              height: 30.sp,
+    return Material(
+      child: TextFormField(
+        onTap: () => Get.toNamed('/search_screen'),
+        readOnly: true,
+        decoration: InputDecoration(
+          hintText: 'Search',
+          prefixIcon: Padding(
+            padding: const EdgeInsets.only(left: 10),
+            child: IconButton(
+              splashRadius: 15,
+              icon: Image.asset(
+                'assets/icons/search.png',
+                scale: 1.8,
+                fit: BoxFit.scaleDown,
+                width: 30.sp,
+                height: 30.sp,
+              ),
+              onPressed: () {},
             ),
-            onPressed: () {},
           ),
         ),
       ),

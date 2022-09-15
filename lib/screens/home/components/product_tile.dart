@@ -31,7 +31,7 @@ class ProductTile extends GetView<HomeController> {
               fit: BoxFit.cover,
 
               //!this is the trmporary
-              image: NetworkImage('http://192.168.56.1/laravel9/e-commerce/public/${products[index].image}'),
+              image: NetworkImage('http://192.168.56.1/laravel9/e-commerce/${products[index].image}'),
               //!this is the true solution
               // image: NetworkImage(products[index].image),
               placeholder: const AssetImage('assets/image_loading.png'),

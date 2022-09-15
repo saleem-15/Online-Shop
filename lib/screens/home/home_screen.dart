@@ -9,36 +9,38 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Padding(
-        padding: EdgeInsets.only(
-          right: 15.w,
-          left: 15.w,
-          top: 15.h,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SearchTextField(),
-            SizedBox(
-              height: 15.h,
-            ),
-            Text(
-              'Categories',
-              style: Theme.of(context).textTheme.headline6,
-            ),
-            SizedBox(
-              width: MediaQuery.of(context).size.width,
-              height: 50.sp,
-              child: const Categories(),
-            ),
-            SizedBox(
-              height: 5.h,
-            ),
-            const Expanded(
-              child: Products(),
-            )
-          ],
+    return Scaffold(
+      body: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.only(
+            right: 15.w,
+            left: 15.w,
+            top: 15.h,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SearchTextField(),
+              SizedBox(
+                height: 15.h,
+              ),
+              Text(
+                'Categories',
+                style: Theme.of(context).textTheme.headline6,
+              ),
+              SizedBox(
+                width: MediaQuery.of(context).size.width,
+                height: 50.sp,
+                child: const Categories(),
+              ),
+              SizedBox(
+                height: 5.h,
+              ),
+              const Expanded(
+                child: Products(),
+              )
+            ],
+          ),
         ),
       ),
     );

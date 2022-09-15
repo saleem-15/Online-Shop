@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import 'package:my_shop/config/theme/my_styles.dart';
-import 'package:my_shop/screens/shipping/shipping_controller.dart';
+import 'package:my_shop/screens/shipping/controllers/shipping_controller.dart';
 
 import '../../config/theme/light_theme_colors.dart';
 import 'components/shipping_address_tile.dart';
@@ -34,7 +34,6 @@ class ShippingAddressScreen extends GetView<ShippingController> {
               color: myBlack.withOpacity(.2),
               blurRadius: 15,
               spreadRadius: 1,
-              // blurStyle: BlurStyle.outer,
             )
           ],
           borderRadius: BorderRadius.only(
@@ -47,29 +46,37 @@ class ShippingAddressScreen extends GetView<ShippingController> {
           child: const Text('Apply'),
         ),
       ),
-      body: Column(
-        children: [
-          ...List.generate(
-            controller.shippingAddresses.length,
-            (index) => ShippingAddressTile(
-              isDefaultShippingAddress: index == 0,
-              address: controller.shippingAddresses[index],
-              myIndex: index,
-              selectedIndex: controller.selectedAddressIndex,
-            ),
-          ),
-          SizedBox(
-            height: 15.h,
-          ),
-          ElevatedButton(
-            onPressed: controller.addNewAddress,
-            style: MyStyles.getGreyElevatedButtonStyle(),
-            child: Text(
-              'Add New Address',
-              style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 18),
-            ),
-          ),
-        ],
+      body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
+        child: Obx(() => Column(
+              children: [
+                ...List.generate(
+                  controller.shippingAddresses.length,
+                  (index) => ShippingAddressTile(
+                    isDefaultShippingAddress: index == 0,
+                    address: controller.shippingAddresses[index],
+                    myIndex: index,
+                    selectedIndex: controller.selectedAddressIndex,
+                  ),
+                ),
+                SizedBox(
+                  height: 15.h,
+                ),
+                Center(
+                  child: ElevatedButton(
+                    onPressed: controller.onAddNewAddressPressed,
+                    style: MyStyles.getGreyElevatedButtonStyle(),
+                    child: Text(
+                      'Add New Address',
+                      style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 18),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+              ],
+            )),
       ),
     );
   }

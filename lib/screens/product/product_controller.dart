@@ -2,7 +2,7 @@ import 'package:get/get.dart';
 import 'package:my_shop/models/cart_item.dart';
 import 'package:my_shop/models/product_preview.dart';
 import 'package:my_shop/screens/cart/cart_controller.dart';
-import 'package:my_shop/screens/product/fetch_product_details_service.dart';
+import 'package:my_shop/screens/product/services/fetch_product_details_service.dart';
 
 import '../../app_components/custom_snackbar.dart';
 import '../../models/product.dart';
@@ -11,19 +11,20 @@ class ProductController extends GetxController {
   late ProductPreview productPreview;
   late Rx<Product> product;
 
-  // -1 ==> nothing is selected
+  /// -1 ==> nothing is selected
   Rx<int> selectedColorIndex = (-1).obs;
   Rx<int> selectedSizeIndex = (-1).obs;
   Rx<int> quantity = 1.obs;
 
   double get totalCartItemsPrice => quantity.value * product.value.price;
 
-  /// this method must be calles before opening [ProductDetailsScreen]
+  /// this method must be called before opening [ProductDetailsScreen]
   Future<void> updateProduct(ProductPreview p) async {
     productPreview = p;
 
     product = Product(
       id: productPreview.id,
+      categoryId: '',
       name: productPreview.name,
       price: productPreview.price,
       isFavorite: productPreview.isFavorite,
@@ -36,6 +37,7 @@ class ProductController extends GetxController {
     selectedSizeIndex.value = -1;
     quantity.value = 1;
     product.value = await fetchProductDetails(productPreview);
+    // update(['images_slider']);
   }
 
   void addToCart() {

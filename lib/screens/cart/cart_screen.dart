@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:my_shop/screens/cart/cart_controller.dart';
-import 'package:my_shop/screens/checkout/checkout_controller.dart';
 
 import '../../config/theme/light_theme_colors.dart';
-import '../checkout/checkout_screen.dart';
 import 'components/cart_item.dart';
 
 class CartScreen extends GetView<CartController> {
@@ -29,13 +27,13 @@ class CartScreen extends GetView<CartController> {
               boxShadow: [
                 BoxShadow(
                   color: myBlack.withOpacity(.2),
-                  offset: const Offset(0, -30),
-                  blurRadius: 15,
-                  spreadRadius: 10,
+                  offset: const Offset(0, -40),
+                  blurRadius: 30,
+                  spreadRadius: 5,
                   // blurStyle: BlurStyle.outer,
                 )
               ],
-              color: Colors.white,
+              color: Colors.grey[50],
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(30.r),
                 topRight: Radius.circular(30.r),

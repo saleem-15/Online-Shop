@@ -1,7 +1,12 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:my_shop/screens/auth/controllers/auth_conroller.dart';
+import 'package:my_shop/screens/auth/screens/signin_screen.dart';
+import 'package:my_shop/screens/shipping/controllers/add_new_shipping_address_controller.dart';
 
 import 'config/theme/light_theme_colors.dart';
 import 'config/theme/my_theme.dart';
@@ -12,10 +17,11 @@ import '../screens/home/home_screen.dart';
 import '../screens/product/product_controller.dart';
 import '../screens/product/product_details_screen.dart';
 import '../screens/search/search_screen.dart';
-import '../screens/shipping/shipping_address.dart';
+import 'screens/shipping/controllers/shipping_controller.dart';
+import 'screens/shipping/shipping_address_screen.dart';
 import '../screens/shipping/shipping_binding.dart';
-import 'screens/auth/sign_in/signin_controller.dart';
-import 'screens/auth/sign_up/signup_controller.dart';
+import 'screens/auth/controllers/signin_controller.dart';
+import 'screens/auth/controllers/signup_controller.dart';
 import 'screens/cart/checkout_bindings.dart';
 import 'screens/checkout/checkout_controller.dart';
 import 'screens/home/home_controller.dart';
@@ -31,34 +37,38 @@ import 'storage/my_shared_pref.dart';
 
 Future<void> main() async {
   await MySharedPref.init();
-
-  runApp(const MyApp());
+  // MySharedPref.setUserToken(null);
+  initControllers();
+  runApp(const MainApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+void initControllers() {
+  Get.lazyPut(() => HomeController(), fenix: true);
+  Get.put(AuthController(), permanent: true);
+  Get.lazyPut(() => ProductController(), fenix: true);
+  Get.lazyPut(() => CartController(), fenix: true);
+  Get.lazyPut(() => CheckoutController(), fenix: true);
+  Get.lazyPut(() => OrdersController(), fenix: true);
+  Get.lazyPut(() => SearchController(), fenix: true);
+  Get.lazyPut(() => SigninController(), fenix: true);
+  Get.lazyPut(() => SignupController(), fenix: true);
+  Get.lazyPut(() => TrackOrderController(), fenix: true);
+  Get.lazyPut(() => ProfileController(), fenix: true);
+  Get.lazyPut(() => UserInfoController(), fenix: true);
+  Get.lazyPut(() => ShippingAddressDetailsController(), fenix: true);
+  Get.lazyPut(() => ShippingController(), fenix: true);
+}
+
+class MainApp extends StatelessWidget {
+  const MainApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    Get.put(HomeController());
-    Get.put(ProductController());
-    Get.lazyPut(() => CartController());
-    Get.lazyPut(() => CheckoutController());
-    Get.lazyPut(() => OrdersController());
-    Get.lazyPut(() => SearchController(), fenix: true);
-    Get.lazyPut(() => SigninController(), fenix: true);
-    Get.lazyPut(() => SignupController(), fenix: true);
-    Get.lazyPut(() => TrackOrderController(), fenix: true);
-    Get.lazyPut(() => ProfileController(), fenix: true);
-    Get.lazyPut(() => UserInfoController(), fenix: true);
-
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
-
-    Rx<int> selectedIndex = 0.obs;
-
+    log('This is Outside My APP');
     return ScreenUtilInit(
       builder: (context, child) => GetMaterialApp(
         debugShowCheckedModeBanner: false,
@@ -95,73 +105,86 @@ class MyApp extends StatelessWidget {
             ),
           );
         },
-        home: Obx(
-          () => Scaffold(
-            // backgroundColor: Colors.green,
-            // extendBody: true,
-            bottomNavigationBar: Container(
-              clipBehavior: Clip.antiAlias,
-              padding: EdgeInsets.symmetric(horizontal: 10.h, vertical: 5.h),
-              decoration: BoxDecoration(
-                // color: Colors.red,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(30.r),
-                  topRight: Radius.circular(30.r),
-                ),
-              ),
-              child: BottomNavigationBar(
-                elevation: 0,
-                backgroundColor: Colors.transparent,
-                type: BottomNavigationBarType.fixed,
-                currentIndex: selectedIndex.value,
-                onTap: (index) => selectedIndex.value = index,
-                selectedItemColor: myBlack,
-                unselectedItemColor: Colors.grey[400],
-                items: const [
-                  BottomNavigationBarItem(
-                    icon: ImageIcon(AssetImage('assets/icons/home.png')),
-                    label: 'Home',
-                  ),
-                  BottomNavigationBarItem(
-                    icon: ImageIcon(AssetImage('assets/cart.png')),
-                    label: 'Cart',
-                  ),
-                  BottomNavigationBarItem(
-                    icon: ImageIcon(AssetImage('assets/icons/shoping_bag.png')),
-                    label: 'Orders',
-                  ),
-                  BottomNavigationBarItem(
-                    icon: Icon(Icons.person),
-                    label: 'Profile',
-                  ),
-                ],
-              ),
-            ),
-            body: Builder(
-              builder: (context) {
-                // return const SignupScreen();
-                // return const ProfileScreen();
-                switch (selectedIndex.value) {
-                  case 0:
-                    return const HomeScreen();
-
-                  case 1:
-                    return const CartScreen();
-
-                  case 2:
-                    return const OrdersScreen();
-
-                  case 3:
-                    return const ProfileScreen();
-
-                  default:
-                    return const HomeScreen();
-                }
-              },
-            ),
-          ),
+        home: GetBuilder<AuthController>(
+          assignId: true,
+          id: 'auth_listener',
+          builder: (controller) {
+            return controller.isUserSignedIn ? MyApp() : const SigninScreen();
+          },
         ),
       ),
     );
+  }
+}
+
+class MyApp extends StatelessWidget {
+  MyApp({Key? key}) : super(key: key);
+
+  final Rx<int> selectedIndex = 0.obs;
+
+  @override
+  Widget build(BuildContext context) {
+    return Obx(() {
+      selectedIndex.value;
+      return Scaffold(
+        bottomNavigationBar: Container(
+          clipBehavior: Clip.antiAlias,
+          padding: EdgeInsets.symmetric(horizontal: 10.h, vertical: 5.h),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(30.r),
+              topRight: Radius.circular(30.r),
+            ),
+          ),
+          child: BottomNavigationBar(
+            elevation: 0,
+            backgroundColor: Colors.transparent,
+            type: BottomNavigationBarType.fixed,
+            currentIndex: selectedIndex.value,
+            onTap: (index) => selectedIndex.value = index,
+            selectedItemColor: myBlack,
+            unselectedItemColor: Colors.grey[400],
+            items: const [
+              BottomNavigationBarItem(
+                icon: ImageIcon(AssetImage('assets/icons/home.png')),
+                label: 'Home',
+              ),
+              BottomNavigationBarItem(
+                icon: ImageIcon(AssetImage('assets/cart.png')),
+                label: 'Cart',
+              ),
+              BottomNavigationBarItem(
+                icon: ImageIcon(AssetImage('assets/icons/shoping_bag.png')),
+                label: 'Orders',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.person),
+                label: 'Profile',
+              ),
+            ],
+          ),
+        ),
+        body: Builder(
+          builder: (_) {
+            switch (selectedIndex.value) {
+              case 0:
+                return const HomeScreen();
+
+              case 1:
+                return const CartScreen();
+
+              case 2:
+                return const OrdersScreen();
+
+              case 3:
+                return const ProfileScreen();
+
+              default:
+                return const HomeScreen();
+            }
+          },
+        ),
+      );
+    });
   }
 }

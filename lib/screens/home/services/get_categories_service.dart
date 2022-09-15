@@ -1,16 +1,21 @@
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
+import 'package:get/get.dart';
+import 'package:my_shop/screens/home/home_controller.dart';
 
-import '../../../app_components/constants/api_url.dart';
+import '../../../app_components/constants/api.dart';
 import '../../../models/category.dart';
 
 Future<List<Category>> getCategoriesService() async {
   try {
-    final response = await dio.post('/category/index');
+    final response = await dio.get(getAllCategories);
 
     final jsonData = response.data;
-    log(jsonData.toString());
+
+    if (Get.find<HomeController>().isLoggingInfo) {
+      log(jsonData.toString());
+    }
     final categoriesData = jsonData['Data'] as List;
 
     return _convertDataToCategoriesList(categoriesData);

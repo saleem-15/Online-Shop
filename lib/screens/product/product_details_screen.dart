@@ -82,17 +82,21 @@ class ProductDetailsScreen extends GetView<ProductController> {
             children: [
               Column(
                 children: [
-                  ImageSlideshow(
-                    indicatorColor: Theme.of(context).primaryColor,
-                    height: 350.h,
-                    children: controller.product.value.images
-                        .map(
-                          (imageURl) => Image.network(
-                            imageURl,
-                            fit: BoxFit.cover,
-                          ),
-                        )
-                        .toList(),
+                  Obx(
+                    () => ImageSlideshow(
+                      indicatorColor: Theme.of(context).primaryColor,
+                      height: 350.h,
+                      children: controller.product.value.images
+                          .map(
+                            (imageURl) => Image.network(
+                              //! TODO this is temporary code only for (local host)
+                              'http://192.168.56.1/laravel9/e-commerce/$imageURl',
+                              // 'assets/1.jpg',
+                              fit: BoxFit.cover,
+                            ),
+                          )
+                          .toList(),
+                    ),
                   ),
                   Padding(
                     padding: EdgeInsets.only(

@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:my_shop/screens/checkout/checkout_controller.dart';
 
-import '../../config/theme/light_theme_colors.dart';
 import 'components/checkout_item.dart';
 import 'components/price_details_card.dart';
 import 'components/shipping_info_card.dart';

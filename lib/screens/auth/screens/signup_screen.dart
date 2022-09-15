@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:my_shop/config/theme/my_styles.dart';
 
-import 'signup_controller.dart';
+import '../controllers/signup_controller.dart';
 
 class SignupScreen extends GetView<SignupController> {
   const SignupScreen({Key? key}) : super(key: key);
@@ -100,7 +100,7 @@ class SignupScreen extends GetView<SignupController> {
                 height: 40.h,
               ),
               ElevatedButton(
-                onPressed: controller.signup,
+                onPressed: controller.onSignupButtonPressed,
                 child: const Text('Sign up'),
               ),
               SizedBox(
@@ -222,6 +222,9 @@ class SignupScreen extends GetView<SignupController> {
                     ),
                   )
                 ],
+              ),
+              const SizedBox(
+                height: 25,
               ),
             ],
           ),

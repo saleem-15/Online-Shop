@@ -11,12 +11,13 @@ import 'my_styles.dart';
 class MyTheme {
   static getThemeData({required bool isLight}) {
     return ThemeData(
+      // useMaterial3: true,
       // main color (app bar,tabs..etc)
       colorScheme: const ColorScheme.light().copyWith(
-        primary:  myBlack ,
+        primary: myBlack,
+        secondary: Colors.grey,
       ),
 
-       
       primaryColor: isLight ? LightThemeColors.primaryColor : DarkThemeColors.primaryColor,
       // secondary color (for checkbox,float button, radio..etc)
       accentColor: isLight ? LightThemeColors.accentColor : DarkThemeColors.accentColor,
@@ -63,6 +64,9 @@ class MyTheme {
 
       //dialog
       dialogTheme: MyStyles.getDialogTheme(isLightTheme: isLight),
+
+      //checkBox
+      checkboxTheme: MyStyles.getCheckBoxStyle(),
     );
   }
 

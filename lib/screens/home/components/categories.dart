@@ -23,9 +23,7 @@ class Categories extends GetView<HomeController> {
                     final isSelected = controller.selectedCategoryIndex.value == index;
                     return ChoiceChip(
                       selected: isSelected,
-                      onSelected: (value) {
-                        controller.selectedCategoryIndex(index);
-                      },
+                      onSelected:(value) =>  controller.onCategorySelected(index),
                       label: Text(
                         controller.categories[index].name,
                       ),

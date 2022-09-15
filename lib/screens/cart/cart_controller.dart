@@ -4,9 +4,9 @@ import 'package:my_shop/models/cart_item.dart';
 import 'package:my_shop/screens/cart/components/confirm_delete_item_bottom_sheet.dart';
 
 import '../checkout/checkout_controller.dart';
-import '../checkout/checkout_screen.dart';
 import 'services/decrease_cart_item_quantity.dart';
 import 'services/delete_cart_item.dart';
+import 'services/get_all_cart_items.dart';
 import 'services/increase_cart_item_quantity.dart';
 
 class CartController extends GetxController {
@@ -50,6 +50,11 @@ class CartController extends GetxController {
       chosenSize: 'L',
     ).obs,
   ].obs;
+  @override
+  void onReady() {
+    getAllCartItemsService();
+    super.onReady();
+  }
 
   void addNewCartITem(CartItem item) {
     cartItems.add(item.obs);

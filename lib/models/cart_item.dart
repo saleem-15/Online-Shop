@@ -5,11 +5,11 @@ class CartItem {
   String imageUrl;
   int quantity;
 
-  double get totalPrice => price * quantity;
-
   /// stores the value of the color like => 0xFFF26E6E
   int? chosenColor;
   String? chosenSize;
+  
+  double get totalPrice => price * quantity;
 
   CartItem({
     required this.productId,

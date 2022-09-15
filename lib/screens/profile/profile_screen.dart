@@ -89,7 +89,7 @@ class ProfileScreen extends GetView<ProfileController> {
                   ),
                 ),
                 ListTile(
-                  onTap: () {},
+                  onTap:controller.goToShippingAddresses,
                   leading: ImageIcon(
                     const AssetImage('assets/icons/location_icon_64.png'),
                     color: Theme.of(context).iconTheme.color,
@@ -145,7 +145,7 @@ class ProfileScreen extends GetView<ProfileController> {
                   ),
                 ),
                 ListTile(
-                  onTap: () {},
+                  onTap: controller.showConfirmLogoutDialog,
                   leading: ImageIcon(
                     const AssetImage('assets/icons/logout_icon_64.png'),
                     color: lightRed,

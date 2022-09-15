@@ -7,17 +7,16 @@ import '../../../app_components/constants/api.dart';
 import '../../../models/product_preview.dart';
 import '../home_controller.dart';
 
-Future<List<ProductPreview>> getProductsService() async {
+Future<List<ProductPreview>> getCategoryProductsService(String categoryId) async {
   try {
-    final response = await dio.get(getAllProducts);
+    final response = await dio.get('$getCategoryProducts/$categoryId');
 
-    final responeseData = response.data['Data'];
+    final responeseData = response.data['Data']['products'];
+
     final productsData = responeseData as List;
-
     if (Get.find<HomeController>().isLoggingInfo) {
       log('products: $responeseData');
     }
-
     return convertDataToProductPreviewList(productsData);
   } on DioError {
     rethrow;

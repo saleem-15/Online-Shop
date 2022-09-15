@@ -1,9 +1,11 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:my_shop/config/theme/my_styles.dart';
 
-import 'signin_controller.dart';
+import '../controllers/signin_controller.dart';
 
 class SigninScreen extends GetView<SigninController> {
   const SigninScreen({Key? key}) : super(key: key);
@@ -229,6 +231,9 @@ class SigninScreen extends GetView<SigninController> {
                     ),
                   )
                 ],
+              ),
+              const SizedBox(
+                height: 25,
               ),
             ],
           ),

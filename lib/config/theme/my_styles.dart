@@ -121,6 +121,7 @@ class MyStyles {
           return MyFonts.buttonTextStyle.copyWith(
               fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
               fontSize: fontSize ?? MyFonts.buttonTextSize,
+              //
               color: isLightTheme ? LightThemeColors.buttonTextColor : DarkThemeColors.buttonTextColor);
         } else if (states.contains(MaterialState.disabled)) {
           return MyFonts.buttonTextStyle.copyWith(
@@ -156,10 +157,12 @@ class MyStyles {
           textStyle: getElevatedButtonTextStyle(isLightTheme),
           backgroundColor: MaterialStateProperty.resolveWith<Color>(
             (Set<MaterialState> states) {
+              //pressed state
               if (states.contains(MaterialState.pressed)) {
                 return isLightTheme
                     ? LightThemeColors.buttonColor.withOpacity(0.5)
                     : DarkThemeColors.buttonColor.withOpacity(0.5);
+                // disabled state
               } else if (states.contains(MaterialState.disabled)) {
                 return isLightTheme
                     ? LightThemeColors.buttonDisabledColor
@@ -249,6 +252,13 @@ class MyStyles {
             ),
             borderRadius: BorderRadius.circular(15.r),
           ),
+        ),
+      );
+
+  static CheckboxThemeData getCheckBoxStyle() => CheckboxThemeData(
+        fillColor: MaterialStateProperty.all(myBlack),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(6),
         ),
       );
 }

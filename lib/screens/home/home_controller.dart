@@ -5,32 +5,57 @@ import 'package:my_shop/screens/home/services/get_products.dart';
 
 import '../../models/product_preview.dart';
 import '../product/product_controller.dart';
+import 'services/get_category_products.dart';
 
 class HomeController extends GetxController {
+  bool isLoggingInfo = false;
   RxInt selectedCategoryIndex = 0.obs;
-  late final List<Category> categories;
+  final List<Category> categories = [
+    Category(id: -1, name: 'All'),
+  ];
   RxBool isLoadingCategories = true.obs;
   RxBool isLoadingProducts = true.obs;
 
   @override
   Future<void> onInit() async {
-    categories = await getCategoriesService();
-    productsPreview = await getProducts();
+    categories.addAll(await getCategoriesService());
+    productsPreview.addAll(await getProductsService());
     isLoadingCategories.value = false;
     isLoadingProducts.value = false;
     super.onInit();
   }
 
-   List<ProductPreview> productsPreview = [];
+  RxList<ProductPreview> productsPreview = <ProductPreview>[].obs;
 
   void goToProductDetails(ProductPreview p) {
     Get.find<ProductController>().updateProduct(p);
 
     Get.toNamed('/product_details');
   }
+
+  void onCategorySelected(int categoryIndex) async {
+    selectedCategoryIndex(categoryIndex);
+
+    ///if "All" (All categories) is selected
+    if (categoryIndex == 0) {
+      getAllProducts();
+      return;
+    }
+
+    productsPreview.clear();
+    final categoryId = categories[categoryIndex].id.toString();
+    isLoadingProducts(true);
+    productsPreview.addAll(await getCategoryProductsService(categoryId));
+    isLoadingProducts(false);
+  }
+
+  void getAllProducts() async {
+    productsPreview.clear();
+    isLoadingProducts(true);
+    productsPreview.addAll(await getProductsService());
+    isLoadingProducts(false);
+  }
 }
-
-
 
 /*
 

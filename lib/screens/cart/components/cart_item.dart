@@ -56,18 +56,7 @@ class CartItemTile extends GetView<CartController> {
                       ),
                       Padding(
                         padding: EdgeInsets.only(bottom: 8.sp),
-                        child: Row(
-                          children: [
-                            CircleAvatar(
-                              backgroundColor: Color(cartItem.value.chosenColor!),
-                              radius: 8.r,
-                            ),
-                            SizedBox(
-                              width: 5.w,
-                            ),
-                            Text('Color | Size = ${cartItem.value.chosenSize}'),
-                          ],
-                        ),
+                        child: CartItemInfo(cartItem: cartItem),
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -87,6 +76,39 @@ class CartItemTile extends GetView<CartController> {
           ],
         ),
       ),
+    );
+  }
+}
+
+class CartItemInfo extends StatelessWidget {
+  const CartItemInfo({
+    Key? key,
+    required this.cartItem,
+  }) : super(key: key);
+
+  final Rx<CartItem> cartItem;
+  final divider = ' | ';
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        if (cartItem.value.chosenColor != null)
+          Row(
+            children: [
+              CircleAvatar(
+                backgroundColor: Color(cartItem.value.chosenColor!),
+                radius: 8.r,
+              ),
+              SizedBox(
+                width: 5.w,
+              ),
+              const Text('Color'),
+            ],
+          ),
+        if (cartItem.value.chosenColor != null && cartItem.value.chosenSize != null) Text(divider),
+        if (cartItem.value.chosenSize != null) Text('Size = ${cartItem.value.chosenSize}'),
+      ],
     );
   }
 }

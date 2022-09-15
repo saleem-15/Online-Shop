@@ -4,8 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:my_shop/storage/my_shared_pref.dart';
 
+import '../auth/controllers/signup_controller.dart';
 import 'components/choose_image_source_bottom_sheet.dart';
+import 'services/edit_profile_info_service.dart';
+import 'services/get_profile_info_service.dart';
 
 class UserInfoController extends GetxController {
   late bool isEditingMode;
@@ -17,13 +21,8 @@ class UserInfoController extends GetxController {
   final phoneNumberController = TextEditingController();
   final emailController = TextEditingController();
 
-  String name = 'Saleem ahdi';
-  String nickName = 'saleem';
-  String birthDate = '15/9/2001';
-  String phoneNumber = '0567244416';
-
-  late final FocusNode dateFocus;
-  late final FocusNode emailFocus;
+  late FocusNode dateFocus;
+  late FocusNode emailFocus;
 
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
@@ -42,20 +41,40 @@ class UserInfoController extends GetxController {
           emailFocus.requestFocus();
         }
       });
+
     super.onInit();
+  }
+
+  @override
+  void onReady() {
+    if (isEditingMode) {
+      initTextFieldsValues();
+    }
+    super.onReady();
   }
 
   bool validateForm() {
     return formKey.currentState!.validate();
   }
 
-  void updateProfileInfo() {
+  /// this method is called when the button is pressed
+  Future<void> updateProfileInfo() async {
     final isDataValid = validateForm();
     if (!isDataValid) {
       return;
     }
 
-    // api call
+    final name = nameController.text.trim();
+    final nickName = nickNameController.text.trim();
+    final email = emailController.text.trim();
+    final phone = phoneNumberController.text.trim();
+    final dateOfBirth = birthDateController.text.trim();
+
+    if (isEditingMode) {
+      await editProfileInfoService(name, nickName, email, phone, dateOfBirth, image);
+      return;
+    }
+    await Get.find<SignupController>().signup(name, nickName, email, phone, dateOfBirth, image);
   }
 
   Future<void> pickDate() async {
@@ -115,6 +134,7 @@ class UserInfoController extends GetxController {
   @override
   void onClose() {
     dateFocus.dispose();
+    emailFocus.dispose();
     super.onClose();
   }
 
@@ -143,5 +163,14 @@ class UserInfoController extends GetxController {
   void pickImageFromCamer() {
     imageSource = ImageSource.camera;
     Get.back();
+  }
+
+  Future<void> initTextFieldsValues() async {
+    await getProfileInfoService();
+    nameController.text = MySharedPref.getUserName;
+    nickNameController.text = MySharedPref.getUserNickName;
+    emailController.text = MySharedPref.getUserEmail;
+    phoneNumberController.text = MySharedPref.getUserPhoneNumber;
+    birthDateController.text = MySharedPref.getUserDateOfBirth;
   }
 }

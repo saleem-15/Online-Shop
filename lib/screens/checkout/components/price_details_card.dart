@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:my_shop/screens/checkout/checkout_controller.dart';
 
 class PriceDetailsCard extends StatelessWidget {
   const PriceDetailsCard({
@@ -23,9 +25,15 @@ class PriceDetailsCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 const Text('Amount'),
-                Text(
-                  '\$1,970',
-                  style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 15.sp),
+                GetBuilder<CheckoutController>(
+                  assignId: true,
+                  id: 'pricing_listener',
+                  builder: (controller) {
+                    return Text(
+                      '\$${controller.ordersTotalPrice.toStringAsFixed(2)}',
+                      style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 15.sp),
+                    );
+                  },
                 ),
               ],
             ),
@@ -34,11 +42,19 @@ class PriceDetailsCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 const Text(
-                  'Amount',
+                  'Shipping',
                 ),
-                Text(
-                  '-',
-                  style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 15.sp),
+                GetBuilder<CheckoutController>(
+                  assignId: true,
+                  id: 'pricing_listener',
+                  builder: (controller) {
+                    return Text(
+                      controller.shippingFee == null
+                          ? '-'
+                          : '\$${controller.shippingFee!.toStringAsFixed(2)}',
+                      style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 15.sp),
+                    );
+                  },
                 ),
               ],
             ),
@@ -48,10 +64,19 @@ class PriceDetailsCard extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text('Amount'),
-                Text(
-                  '-',
-                  style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 15.sp),
+                const Text('Total'),
+                GetBuilder<CheckoutController>(
+                  assignId: true,
+                  id: 'pricing_listener',
+                  builder: (controller) {
+                    return Text(
+                       controller.shippingFee == null
+                          ? '-'
+                          :
+                     '\$${controller.totalFee.toStringAsFixed(2)}' ,
+                      style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 15.sp),
+                    );
+                  },
                 ),
               ],
             ),

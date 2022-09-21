@@ -188,26 +188,26 @@ class MyStyles {
 
   static getInputDecorationTheme({required bool isLightTheme}) => InputDecorationTheme(
         filled: true,
-        fillColor: searchTextfieldColor,
+        fillColor: lightGrey,
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(13.r),
-          borderSide: const BorderSide(color: searchTextfieldColor, width: 1.5),
+          borderSide: const BorderSide(color: lightGrey, width: 1.5),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(13.r),
-          borderSide: const BorderSide(color: searchTextfieldColor, width: 1.5),
+          borderSide: const BorderSide(color: lightGrey, width: 1.5),
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(13.r),
-          borderSide: const BorderSide(color: searchTextfieldColor, width: 1.5),
+          borderSide: const BorderSide(color: lightGrey, width: 1.5),
         ),
         focusedErrorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(13.r),
-          borderSide: const BorderSide(color: searchTextfieldColor, width: 1.5),
+          borderSide: const BorderSide(color: lightGrey, width: 1.5),
         ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(13.r),
-          borderSide: const BorderSide(color: searchTextfieldColor, width: 1.5),
+          borderSide: const BorderSide(color: lightGrey, width: 1.5),
         ),
       );
 

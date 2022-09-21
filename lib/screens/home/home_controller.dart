@@ -8,6 +8,7 @@ import '../product/product_controller.dart';
 import 'services/get_category_products.dart';
 
 class HomeController extends GetxController {
+  //used to log info about home
   bool isLoggingInfo = false;
   RxInt selectedCategoryIndex = 0.obs;
   final List<Category> categories = [
@@ -25,6 +26,7 @@ class HomeController extends GetxController {
     super.onInit();
   }
 
+//1663420663428
   RxList<ProductPreview> productsPreview = <ProductPreview>[].obs;
 
   void goToProductDetails(ProductPreview p) {

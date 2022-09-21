@@ -31,8 +31,9 @@ List<ShippingAddress> converDataToShippingAddress(List shippingAddressesData) {
     final id = addrs['id'];
     final addressName = addrs['title'];
     final address = addrs['address'];
+    final isDefault = addrs['default'] == 1;
 
-    final s = ShippingAddress(id: '$id', name: addressName, address: address);
+    final s = ShippingAddress(id: '$id', name: addressName, address: address, isDefaultAddress: isDefault);
     shippigAddressesList.add(s);
   }
 

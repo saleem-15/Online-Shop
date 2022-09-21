@@ -21,31 +21,33 @@ class ShippingAddressScreen extends GetView<ShippingController> {
           style: Theme.of(context).textTheme.headlineSmall,
         ),
       ),
-      bottomNavigationBar: Container(
-        padding: EdgeInsets.symmetric(
-          horizontal: 20.w,
-          vertical: 20.h,
-        ),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          boxShadow: [
-            const BoxShadow(),
-            BoxShadow(
-              color: myBlack.withOpacity(.2),
-              blurRadius: 15,
-              spreadRadius: 1,
-            )
-          ],
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(30.r),
-            topRight: Radius.circular(30.r),
-          ),
-        ),
-        child: ElevatedButton(
-          onPressed: () {},
-          child: const Text('Apply'),
-        ),
-      ),
+      bottomNavigationBar: controller.isEditingMode
+          ? null
+          : Container(
+              padding: EdgeInsets.symmetric(
+                horizontal: 20.w,
+                vertical: 20.h,
+              ),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                boxShadow: [
+                  const BoxShadow(),
+                  BoxShadow(
+                    color: myBlack.withOpacity(.2),
+                    blurRadius: 15,
+                    spreadRadius: 1,
+                  )
+                ],
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(30.r),
+                  topRight: Radius.circular(30.r),
+                ),
+              ),
+              child: ElevatedButton(
+                onPressed: controller.onApplyButtonPressed,
+                child: const Text('Apply'),
+              ),
+            ),
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: Obx(() => Column(
@@ -53,14 +55,34 @@ class ShippingAddressScreen extends GetView<ShippingController> {
                 ...List.generate(
                   controller.shippingAddresses.length,
                   (index) => ShippingAddressTile(
-                    isDefaultShippingAddress: index == 0,
                     address: controller.shippingAddresses[index],
                     myIndex: index,
-                    selectedIndex: controller.selectedAddressIndex,
                   ),
                 ),
                 SizedBox(
                   height: 15.h,
+                ),
+                // empty state
+                Obx(
+                  () => controller.shippingAddresses.isEmpty && controller.isLoading.isFalse
+                      ? SizedBox(
+                          height: 400.h,
+                          child: const Center(
+                            child: Text('You dont have any addresses'),
+                          ),
+                        )
+                      : const SizedBox.shrink(),
+                ),
+                // loading state
+                Obx(
+                  () => controller.isLoading.isTrue
+                      ? SizedBox(
+                          height: 400.h,
+                          child: const Center(
+                            child: CircularProgressIndicator(),
+                          ),
+                        )
+                      : const SizedBox.shrink(),
                 ),
                 Center(
                   child: ElevatedButton(

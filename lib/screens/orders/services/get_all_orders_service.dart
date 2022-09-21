@@ -2,35 +2,34 @@ import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:my_shop/app_components/utils/helpers.dart';
+import 'package:my_shop/models/order_item.dart';
 
 import '../../../app_components/constants/api.dart';
 import '../../../app_components/custom_snackbar.dart';
-import '../../../models/cart_item.dart';
 
-Future<List<CartItem>> getAllCartItemsService() async {
+Future<List<OrderItem>> getAllOrdersService() async {
   try {
-    final response = await dio.get(getAllUserCartItems);
+    final response = await dio.get(getAllUserOrders);
     //
     final data = response.data['Data'];
-    log('cart items: $data');
+    // log(data.toString());
 
-    return _convertDataToCartItems(data as List);
+    return _converDataToOrders(data);
   } on DioError catch (e) {
     log(e.error.toString());
     CustomSnackBar.showCustomErrorSnackBar(
       message: formatErrorMsg(e.response!.data),
     );
+    return [];
   }
-
-  return [];
 }
 
-List<CartItem> _convertDataToCartItems(List cartItemsData) {
-  final List<CartItem> cartItemsList = [];
-
-  for (var e in cartItemsData) {
-    cartItemsList.add(CartItem.fromMap(e));
+List<OrderItem> _converDataToOrders(List data) {
+  List<OrderItem> orders = [];
+  for (var orderData in data) {
+    final orderItem = OrderItem.fromMap(orderData);
+    orders.add(orderItem);
   }
 
-  return cartItemsList;
+  return orders;
 }

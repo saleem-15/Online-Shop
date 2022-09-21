@@ -6,7 +6,9 @@ import 'package:my_shop/config/theme/my_styles.dart';
 import 'package:my_shop/models/cart_item.dart';
 import 'package:my_shop/screens/cart/cart_controller.dart';
 
-import '../../checkout/components/checkout_item.dart';
+import '../../../app_components/utils/helpers.dart';
+import '../../../config/theme/light_theme_colors.dart';
+import '../../../shared/item_info.dart';
 
 class ConfirmDeleteItem extends GetView<CartController> {
   const ConfirmDeleteItem({
@@ -55,7 +57,7 @@ class ConfirmDeleteItem extends GetView<CartController> {
           Divider(
             height: 40.h,
           ),
-          CheckoutItem(
+          CartItemInDeleteConfirmationSheet(
             cartItem: cartItem,
           ),
           Divider(
@@ -88,6 +90,76 @@ class ConfirmDeleteItem extends GetView<CartController> {
             ],
           ),
         ],
+      ),
+    );
+  }
+}
+
+class CartItemInDeleteConfirmationSheet extends StatelessWidget {
+  const CartItemInDeleteConfirmationSheet({
+    Key? key,
+    required this.cartItem,
+  }) : super(key: key);
+
+  final CartItem cartItem;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(30.r),
+      ),
+      child: Padding(
+        padding: EdgeInsets.all(12.sp),
+        child: Row(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(20.r),
+              child: Image.network(
+                getFullImageUrl(cartItem.imageUrl),
+                fit: BoxFit.cover,
+                width: 100.sp,
+                height: 100.sp,
+              ),
+            ),
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.only(left: 12.sp),
+                child: SizedBox(
+                  height: 100.h,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Text(
+                        cartItem.productName,
+                        style: Theme.of(context).textTheme.bodyText1,
+                      ),
+                      ItemInfo(cartItem: cartItem),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            '\$${cartItem.price}',
+                            style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 18),
+                          ),
+                          CircleAvatar(
+                            backgroundColor: lightGrey,
+                            radius: 13.sp,
+                            child: Text(
+                              '${cartItem.quantity}',
+                              style: Theme.of(context).textTheme.bodyText1,
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

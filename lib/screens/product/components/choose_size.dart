@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:my_shop/models/product_size.dart';
 
 import 'package:my_shop/screens/product/product_controller.dart';
 
@@ -12,7 +13,7 @@ class ChooseSize extends GetView<ProductController> {
     required this.sizes,
   }) : super(key: key);
 
-  final List<String> sizes;
+  final List<ProductSize> sizes;
 
   @override
   Widget build(BuildContext context) {
@@ -44,12 +45,9 @@ class ChooseSize extends GetView<ProductController> {
                       ),
                     ),
                     selected: index == selectedIndex.value,
-                    onSelected: (value) {
-                      selectedIndex.value = index;
-                      controller.setSelectedSize(sizes[selectedIndex.value]);
-                    },
+                    onSelected: (_) => controller.setSelectedSize(index),
                     label: Text(
-                      sizes[index],
+                      sizes[index].size,
                     ),
                   ),
                 ),

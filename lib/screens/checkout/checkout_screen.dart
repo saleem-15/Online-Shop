@@ -86,7 +86,7 @@ class CheckoutScreen extends GetView<CheckoutController> {
               const PriceDetailsCard(),
               SizedBox(height: 20.sp),
               ElevatedButton.icon(
-                onPressed: () {},
+                onPressed: controller.onContinueToPaymentButtonPressed,
                 label: const Icon(Icons.arrow_forward),
                 icon: const Text('Continue to payment'),
               ),

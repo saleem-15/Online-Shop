@@ -12,22 +12,30 @@ class OngoingOrdersTab extends GetView<OrdersController> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 5.h),
-      child: controller.onGoingOrders.isEmpty
-          //TODO put an image
+    return Obx(
+      () => controller.isLoading.isTrue
+
+          ///loading state
           ? const Center(
-              child: Text('You dont have any onGoing orders'),
+              child: CircularProgressIndicator(),
             )
-          : ListView.builder(
-              itemCount: controller.onGoingOrders.length,
-              itemBuilder: (context, index) {
-                final order = controller.onGoingOrders[index];
-                return OrderItemTile(
-              order:order,
-                );
-              },
-            ),
+
+          ///empty state
+          : controller.onGoingOrders.isEmpty
+              //TODO put an image
+              ? const Center(
+                  child: Text('You dont have any onGoing orders'),
+                )
+              : ListView.builder(
+                  padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 5.h),
+                  itemCount: controller.onGoingOrders.length,
+                  itemBuilder: (context, index) {
+                    final order = controller.onGoingOrders[index];
+                    return OrderItemTile(
+                      order: order,
+                    );
+                  },
+                ),
     );
   }
 }

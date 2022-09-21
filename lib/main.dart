@@ -6,8 +6,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:my_shop/screens/auth/controllers/auth_conroller.dart';
 import 'package:my_shop/screens/auth/screens/signin_screen.dart';
-import 'package:my_shop/screens/shipping/controllers/add_new_shipping_address_controller.dart';
+import 'package:my_shop/screens/shipping/controllers/shipping_address_details_controller.dart';
+import 'package:my_shop/screens/track_order/shipping_binding.dart';
+import 'package:my_shop/screens/track_order/track_order_screen.dart';
+import 'package:my_shop/screens/user_info/user_info_screen.dart';
 
+import 'app_components/constants/api.dart';
+import 'app_components/utils/device_info.dart';
 import 'config/theme/light_theme_colors.dart';
 import 'config/theme/my_theme.dart';
 import '../screens/cart/cart_controller.dart';
@@ -17,12 +22,10 @@ import '../screens/home/home_screen.dart';
 import '../screens/product/product_controller.dart';
 import '../screens/product/product_details_screen.dart';
 import '../screens/search/search_screen.dart';
-import 'screens/shipping/controllers/shipping_controller.dart';
 import 'screens/shipping/shipping_address_screen.dart';
-import '../screens/shipping/shipping_binding.dart';
 import 'screens/auth/controllers/signin_controller.dart';
 import 'screens/auth/controllers/signup_controller.dart';
-import 'screens/cart/checkout_bindings.dart';
+import 'screens/checkout/checkout_bindings.dart';
 import 'screens/checkout/checkout_controller.dart';
 import 'screens/home/home_controller.dart';
 import 'screens/orders/orders_controller.dart';
@@ -31,13 +34,18 @@ import 'screens/product/product_binding.dart';
 import 'screens/profile/profile_controller.dart';
 import 'screens/profile/profile_screen.dart';
 import 'screens/search/search_controller.dart';
+import 'screens/shipping/shipping_binding.dart';
 import 'screens/track_order/track_order_controller.dart';
+import 'screens/user_info/user_info_bindings.dart';
 import 'screens/user_info/user_info_controller.dart';
 import 'storage/my_shared_pref.dart';
 
 Future<void> main() async {
   await MySharedPref.init();
-  // MySharedPref.setUserToken(null);
+  await DeviceName().initDeviceName();
+  apiUrl = DeviceName.deviceName == 'sdk_gphone64_x86_64'
+      ? 'http://192.168.56.1:80/laravel9/e-commerce/public/api'
+      : 'https://a52d-37-75-213-177.eu.ngrok.io/laravel9/e-commerce/public/api';
   initControllers();
   runApp(const MainApp());
 }
@@ -56,7 +64,7 @@ void initControllers() {
   Get.lazyPut(() => ProfileController(), fenix: true);
   Get.lazyPut(() => UserInfoController(), fenix: true);
   Get.lazyPut(() => ShippingAddressDetailsController(), fenix: true);
-  Get.lazyPut(() => ShippingController(), fenix: true);
+  // Get.lazyPut(() => ShippingController(), fenix: true);
 }
 
 class MainApp extends StatelessWidget {
@@ -68,6 +76,7 @@ class MainApp extends StatelessWidget {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
+    // addProductService();
     log('This is Outside My APP');
     return ScreenUtilInit(
       builder: (context, child) => GetMaterialApp(
@@ -81,7 +90,7 @@ class MainApp extends StatelessWidget {
           GetPage(
             name: '/shipping_addresses',
             page: () => const ShippingAddressScreen(),
-            binding: ShippingBinding(),
+            binding: ShippingBindings(),
           ),
           GetPage(
             name: '/checkout',
@@ -91,7 +100,17 @@ class MainApp extends StatelessWidget {
           GetPage(
             name: '/product_details',
             page: () => const ProductDetailsScreen(),
-            binding: ProductBinding(),
+            binding: ProductBindings(),
+          ),
+          GetPage(
+            name: '/track_order',
+            page: () => const TrackOrder(),
+            binding: TrackOrderBindings(),
+          ),
+          GetPage(
+            name: '/user_info',
+            page: () => const UserInfoScreen(),
+            binding: UserInfoBindings(),
           ),
         ],
         builder: (context, widget) {

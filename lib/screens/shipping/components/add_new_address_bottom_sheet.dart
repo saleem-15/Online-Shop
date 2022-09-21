@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:my_shop/config/theme/my_styles.dart';
 
-import 'package:my_shop/screens/shipping/controllers/add_new_shipping_address_controller.dart';
+import 'package:my_shop/screens/shipping/controllers/shipping_address_details_controller.dart';
+
+import '../../../config/theme/light_theme_colors.dart';
 
 /// its used to add edit shipping address details OR to add a new shipping address
 class ShippingAddressDetailsSheet extends GetView<ShippingAddressDetailsController> {
@@ -101,9 +104,28 @@ class ShippingAddressDetailsSheet extends GetView<ShippingAddressDetailsControll
               const SizedBox(
                 height: 8,
               ),
-              ElevatedButton(
-                onPressed: controller.addNewAddress,
-                child: const Text('Add'),
+              Row(
+                children: [
+                  if (controller.isEditingMode)
+                    Expanded(
+                      child: ElevatedButton(
+                        onPressed: controller.onDeleteButtonPressed,
+                        style: MyStyles.getGreyElevatedButtonStyle()
+                            .copyWith(backgroundColor: MaterialStateProperty.all(lightRed)),
+                        child: const Text('Delete'),
+                      ),
+                    ),
+                  if (controller.isEditingMode)
+                    const SizedBox(
+                      width: 10,
+                    ),
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: controller.onButtonPressed,
+                      child: Text(controller.isEditingMode ? 'Update' : 'Add'),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),

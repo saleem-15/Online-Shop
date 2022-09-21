@@ -1,16 +1,19 @@
 import 'dart:convert';
 
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:my_shop/models/product_color.dart';
+import 'package:my_shop/models/product_size.dart';
+
 class Product {
   String id;
   String categoryId;
   String name;
   String description;
   double price;
+  int quantity;
   bool isFavorite;
   List<String> images;
-  List<int> colors;
-  List<String> sizes;
+  List<ProductColor> colors;
+  List<ProductSize> sizes;
 
   Product({
     required this.id,
@@ -18,6 +21,7 @@ class Product {
     required this.name,
     required this.description,
     required this.price,
+    required this.quantity,
     required this.isFavorite,
     required this.images,
     required this.colors,
@@ -35,22 +39,26 @@ class Product {
       'images': images,
       'colors': colors,
       'sizes': sizes,
+      'quantity': quantity,
     };
   }
 
   factory Product.fromMap(Map<String, dynamic> map) {
     return Product(
-      id: map['id'].toString(),
-      categoryId: map['category_id'].toString(),
-      name: map['name'],
-      description: map['description'],
-      price: (map['price'] as num).toDouble(),
-      isFavorite: false,
-      //map['isFavorite'],
-      images: List<String>.from(map['images']),
-      colors: List<int>.from(map['colors']),
-      sizes: List<String>.from(map['sizes']),
-    );
+        id: map['id'].toString(),
+        categoryId: map['category_id'].toString(),
+        name: map['name'],
+        description: map['description'],
+        price: (map['price'] as num).toDouble(),
+        isFavorite: false,
+        //map['isFavorite'],
+        images: List<String>.from(map['images']),
+        colors: (map['colors'] as List).map((e) => ProductColor.fromMap(e)).toList(),
+        sizes: (map['sizes'] as List).map((e) => ProductSize.fromMap(e)).toList(),
+       
+        quantity: map['quantity']
+        // List<String>.from(map['sizes']),
+        );
   }
   String toJson() => json.encode(toMap());
   factory Product.fromJson(String source) => Product.fromMap(json.decode(source));

@@ -7,6 +7,7 @@ import 'package:my_shop/models/product.dart';
 
 import 'package:my_shop/screens/product/product_controller.dart';
 
+import '../../app_components/utils/helpers.dart';
 import 'components/product_info.dart';
 
 class ProductDetailsScreen extends GetView<ProductController> {
@@ -90,7 +91,8 @@ class ProductDetailsScreen extends GetView<ProductController> {
                           .map(
                             (imageURl) => Image.network(
                               //! TODO this is temporary code only for (local host)
-                              'http://192.168.56.1/laravel9/e-commerce/$imageURl',
+                              getFullImageUrl(imageURl),
+                              // 'http://192.168.56.1/laravel9/e-commerce/$imageURl',
                               // 'assets/1.jpg',
                               fit: BoxFit.cover,
                             ),
@@ -138,7 +140,7 @@ class ProductDetailsScreen extends GetView<ProductController> {
                             ),
                             Obx(
                               () => Text(
-                                '\$${controller.totalCartItemsPrice.toStringAsFixed(2)}',
+                                '\$${controller.totalPrice.toStringAsFixed(2)}',
                                 style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 22),
                               ),
                             ),

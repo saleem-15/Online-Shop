@@ -5,7 +5,9 @@ import 'package:get/get.dart';
 import 'package:my_shop/models/cart_item.dart';
 import 'package:my_shop/screens/cart/cart_controller.dart';
 
+import '../../../app_components/utils/helpers.dart';
 import '../../../config/theme/light_theme_colors.dart';
+import '../../../shared/item_info.dart';
 
 class CartItemTile extends GetView<CartController> {
   const CartItemTile({Key? key, required this.cartItem}) : super(key: key);
@@ -25,7 +27,7 @@ class CartItemTile extends GetView<CartController> {
             ClipRRect(
               borderRadius: BorderRadius.circular(30.r),
               child: Image.network(
-                cartItem.value.imageUrl,
+                getFullImageUrl(cartItem.value.imageUrl),
                 fit: BoxFit.cover,
                 width: 100.sp,
                 height: 100.sp,
@@ -43,12 +45,15 @@ class CartItemTile extends GetView<CartController> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
+                          /// product name
                           Text(
-                            'Werlla Cardigans',
-                            style: Theme.of(context).textTheme.bodyText1,
+                            cartItem.value.productName,
+                            style: Theme.of(context).textTheme.headline6,
                           ),
+
+                          /// delete button
                           IconButton(
-                            onPressed: () => controller.showDeleteConfirmation(cartItem.value.productId),
+                            onPressed: () => controller.showDeleteConfirmation(cartItem.value.id),
                             splashRadius: 25,
                             icon: const ImageIcon(AssetImage('assets/icons/delete_icon.png')),
                           ),
@@ -56,7 +61,7 @@ class CartItemTile extends GetView<CartController> {
                       ),
                       Padding(
                         padding: EdgeInsets.only(bottom: 8.sp),
-                        child: CartItemInfo(cartItem: cartItem),
+                        child: ItemInfo(cartItem: cartItem.value),
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -80,39 +85,6 @@ class CartItemTile extends GetView<CartController> {
   }
 }
 
-class CartItemInfo extends StatelessWidget {
-  const CartItemInfo({
-    Key? key,
-    required this.cartItem,
-  }) : super(key: key);
-
-  final Rx<CartItem> cartItem;
-  final divider = ' | ';
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        if (cartItem.value.chosenColor != null)
-          Row(
-            children: [
-              CircleAvatar(
-                backgroundColor: Color(cartItem.value.chosenColor!),
-                radius: 8.r,
-              ),
-              SizedBox(
-                width: 5.w,
-              ),
-              const Text('Color'),
-            ],
-          ),
-        if (cartItem.value.chosenColor != null && cartItem.value.chosenSize != null) Text(divider),
-        if (cartItem.value.chosenSize != null) Text('Size = ${cartItem.value.chosenSize}'),
-      ],
-    );
-  }
-}
-
 class QuantityChooser extends GetView<CartController> {
   const QuantityChooser({
     Key? key,
@@ -127,19 +99,26 @@ class QuantityChooser extends GetView<CartController> {
       height: 30.h,
       width: 80.w,
       decoration: BoxDecoration(
-        color: searchTextfieldColor,
+        color: lightGrey,
         borderRadius: BorderRadius.circular(20.r),
       ),
       child: FittedBox(
         child: Row(
           children: [
-            IconButton(
-              splashRadius: 5,
-              onPressed: () => controller.reduceQuantityByOne(cartItem.value.productId),
-              icon: ImageIcon(
-                const AssetImage('assets/icons/minus.png'),
-                size: 10.sp,
-              ),
+            Obx(
+              () {
+                cartItem.value;
+                return IconButton(
+                  splashRadius: 5,
+                  onPressed: cartItem.value.quantity == 1
+                      ? null
+                      : () => controller.reduceQuantityByOne(cartItem.value.id),
+                  icon: ImageIcon(
+                    const AssetImage('assets/icons/minus.png'),
+                    size: 10.sp,
+                  ),
+                );
+              },
             ),
             Obx(
               () => Text(
@@ -148,7 +127,7 @@ class QuantityChooser extends GetView<CartController> {
               ),
             ),
             IconButton(
-              onPressed: () => controller.increaseQuantityByOne(cartItem.value.productId),
+              onPressed: () => controller.increaseQuantityByOne(cartItem.value.id),
               splashRadius: 5,
               icon: ImageIcon(
                 const AssetImage('assets/icons/plus_.png'),

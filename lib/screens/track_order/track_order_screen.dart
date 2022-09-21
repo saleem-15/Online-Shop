@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:im_stepper/stepper.dart';
 import 'package:my_shop/config/theme/light_theme_colors.dart';
+import 'package:my_shop/screens/track_order/track_order_controller.dart';
 
-import 'order_item.dart';
+import '../orders/components/order_item.dart';
 
 class TrackOrder extends StatelessWidget {
   const TrackOrder({Key? key}) : super(key: key);
@@ -18,30 +20,36 @@ class TrackOrder extends StatelessWidget {
           style: Theme.of(context).textTheme.headlineSmall,
         ),
       ),
-      body: Column(
-        children: [
-          const OrderCard(),
-          IconStepper(
-            
-            enableStepTapping: false,
-            enableNextPreviousButtons: false,
-            stepRadius: 12.sp,
-            activeStepColor: myBlack,
-            lineColor: Colors.grey,
-            activeStep: 2,
-            // ensure that active step dont have border araound it
-            activeStepBorderColor: Colors.transparent,
-            // activeStepBorderPadding: 20,
-            lineDotRadius: 1,
+      body: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 5.h),
+        child: Column(
+          children: [
+            GetBuilder<TrackOrderController>(
+              builder: (controller) {
+                return OrderItemTile(order: controller.order);
+              },
+            ),
+            IconStepper(
+              enableStepTapping: false,
+              enableNextPreviousButtons: false,
+              stepRadius: 12.sp,
+              activeStepColor: myBlack,
+              lineColor: Colors.grey,
+              activeStep: 2,
+              // ensure that active step dont have border araound it
+              activeStepBorderColor: Colors.transparent,
+              // activeStepBorderPadding: 20,
+              lineDotRadius: 1,
 
-            icons: const [
-              Icon(Icons.done, color: Colors.white),
-              Icon(Icons.done, color: Colors.white),
-              Icon(Icons.done, color: Colors.white),
-              Icon(Icons.done, color: Colors.white),
-            ],
-          )
-        ],
+              icons: const [
+                Icon(Icons.done, color: Colors.white),
+                Icon(Icons.done, color: Colors.white),
+                Icon(Icons.done, color: Colors.white),
+                Icon(Icons.done, color: Colors.white),
+              ],
+            )
+          ],
+        ),
       ),
     );
   }

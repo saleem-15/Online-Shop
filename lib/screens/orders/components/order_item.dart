@@ -50,25 +50,14 @@ class OrderItemTile extends GetView<OrdersController> {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         Text(
-                          'Werlla Cardigans',
+                          order.productName,
                           style: Theme.of(context).textTheme.bodyText1,
                         ),
-                        Row(
-                          children: [
-                            CircleAvatar(
-                              backgroundColor: Colors.deepPurple[300],
-                              radius: 8.r,
-                            ),
-                            SizedBox(
-                              width: 5.w,
-                            ),
-                            Text('Color | Size = ${order.chosenSize} | Qty = ${order.quantity}'),
-                          ],
-                        ),
+                        OrderInfo(orderItem: order),
                         Container(
                           padding: EdgeInsets.symmetric(horizontal: 7.sp, vertical: 5.sp),
                           decoration: BoxDecoration(
-                            color: searchTextfieldColor,
+                            color: lightGrey,
                             borderRadius: BorderRadius.circular(8.r),
                           ),
                           child: Text(order.status.name),
@@ -86,6 +75,41 @@ class OrderItemTile extends GetView<OrdersController> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class OrderInfo extends StatelessWidget {
+  const OrderInfo({
+    Key? key,
+    required this.orderItem,
+  }) : super(key: key);
+
+  final OrderItem orderItem;
+  final divider = ' | ';
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        if (orderItem.chosenColor != null)
+          Row(
+            children: [
+              CircleAvatar(
+                backgroundColor: Color(orderItem.chosenColor!),
+                radius: 8.r,
+              ),
+              SizedBox(
+                width: 5.w,
+              ),
+              const Text('Color'),
+            ],
+          ),
+        if (orderItem.chosenColor != null && orderItem.chosenSize != null) Text(divider),
+        if (orderItem.chosenSize != null) Text('Size = ${orderItem.chosenSize!}'),
+        if (orderItem.chosenColor != null) Text(divider),
+        Text('Qty = ${orderItem.quantity}'),
+      ],
     );
   }
 }

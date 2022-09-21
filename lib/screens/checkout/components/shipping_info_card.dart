@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -43,24 +45,34 @@ class ShippingInfoCard extends GetView<CheckoutController> {
               SizedBox(
                 width: 15.w,
               ),
-              Obx(
-                () => Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      controller.shippingAddress.value.name,
-                      style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 18),
-                    ),
-                    SizedBox(
-                      height: 5.h,
-                    ),
-                    Text(
-                      controller.shippingAddress.value.address,
-                      style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: 13),
-                    ),
-                  ],
-                ),
+              GetBuilder<CheckoutController>(
+                assignId: true,
+                id: 'selected_address_listener',
+                builder: (controller) {
+                  log('checkout shipping => isAddressChosen:  ${controller.shippingAddress == null ? 'false' : 'true'}');
+                  return controller.shippingAddress == null
+                      ? Text(
+                          'Choose Shipping Address',
+                          style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 18),
+                        )
+                      : Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              controller.shippingAddress!.name,
+                              style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 18),
+                            ),
+                            SizedBox(
+                              height: 5.h,
+                            ),
+                            Text(
+                              controller.shippingAddress!.address,
+                              style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: 13),
+                            ),
+                          ],
+                        );
+                },
               ),
               const Spacer(),
               IconButton(

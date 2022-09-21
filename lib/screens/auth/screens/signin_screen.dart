@@ -54,6 +54,8 @@ class SigninScreen extends GetView<SigninController> {
                       TextFormField(
                         controller: controller.emailController,
                         validator: controller.emailFieldValidator,
+                        textInputAction: TextInputAction.next, // Moves focus to next field
+
                         decoration: InputDecoration(
                           hintText: 'Email',
                           prefixIcon: Container(

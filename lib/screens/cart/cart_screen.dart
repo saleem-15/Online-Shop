@@ -30,7 +30,6 @@ class CartScreen extends GetView<CartController> {
                   offset: const Offset(0, -40),
                   blurRadius: 30,
                   spreadRadius: 5,
-                  // blurStyle: BlurStyle.outer,
                 )
               ],
               color: Colors.grey[50],
@@ -61,36 +60,56 @@ class CartScreen extends GetView<CartController> {
                   width: 30.w,
                 ),
                 Expanded(
-                  child: ElevatedButton.icon(
-                    onPressed: controller.checkout,
-                    label: const Icon(Icons.arrow_forward),
-                    icon: const Text('Checkout'),
-                    style: ButtonStyle(
+                  child: Obx(
+                    () => ElevatedButton.icon(
+                      onPressed: controller.cartItems.isEmpty ? null : controller.checkout,
+                      label: const Icon(Icons.arrow_forward),
+                      icon: const Text('Checkout'),
+                      style: ButtonStyle(
                         minimumSize: MaterialStateProperty.all(const Size(100, 55)),
                         shape: MaterialStateProperty.all(
                           RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
-                        )),
+                        ),
+                      ),
+                    ),
                   ),
                 )
               ],
             ),
           ),
-          body: controller.cartItems.isEmpty
-              //Todo put an image when there isn't any items
-              ? const Center(
-                  child: Text('you dont have any cart items'),
-                )
-              : ListView.builder(
-                  padding: EdgeInsets.symmetric(horizontal: 15.w),
-                  itemCount: controller.cartItems.length,
-                  itemBuilder: (context, index) {
-                    final cartItem = controller.cartItems[index];
-                    return Padding(
-                      padding: EdgeInsets.symmetric(vertical: 3.h),
-                      child: CartItemTile(cartItem: cartItem),
-                    );
-                  },
-                ),
+          body: RefreshIndicator(
+            onRefresh: controller.onRefresh,
+            child: controller.cartItems.isEmpty
+
+                ///empty state
+                /// I am using a list if there is no cat items so the user can swipe down
+                /// and refreshes  the screen
+                ? ListView(
+                    itemExtent: 400.h,
+                    children: [
+                      //Todo put an image when there isn't any items
+                      Center(
+                        child: controller.isLoading.isTrue
+                            ? const CircularProgressIndicator()
+                            : Text(
+                                'you dont have any cart items',
+                                style: Theme.of(context).textTheme.headline6,
+                              ),
+                      ),
+                    ],
+                  )
+                : ListView.builder(
+                    padding: EdgeInsets.symmetric(horizontal: 15.w),
+                    itemCount: controller.cartItems.length,
+                    itemBuilder: (context, index) {
+                      final cartItem = controller.cartItems[index];
+                      return Padding(
+                        padding: EdgeInsets.symmetric(vertical: 3.h),
+                        child: CartItemTile(cartItem: cartItem),
+                      );
+                    },
+                  ),
+          ),
         );
       },
     );

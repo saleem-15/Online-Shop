@@ -14,20 +14,26 @@ class CompletedOrdersTab extends GetView<OrdersController> {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 5.h),
-      child: controller.completedOrders.isEmpty
-          //TODO put an image
-          ? const Center(
-              child: Text('You dont have any completed orders'),
-            )
-          : ListView.builder(
-              itemCount: controller.completedOrders.length,
-              itemBuilder: (context, index) {
-                final order = controller.completedOrders[index];
-                return OrderItemTile(
-                  order: order,
-                );
-              },
-            ),
+      child: Obx(
+        () => controller.isLoading.isTrue
+            ? const Center(
+                child: CircularProgressIndicator(),
+              )
+            : controller.completedOrders.isEmpty
+                //TODO put an image
+                ? const Center(
+                    child: Text('You dont have any completed orders'),
+                  )
+                : ListView.builder(
+                    itemCount: controller.completedOrders.length,
+                    itemBuilder: (context, index) {
+                      final order = controller.completedOrders[index];
+                      return OrderItemTile(
+                        order: order,
+                      );
+                    },
+                  ),
+      ),
     );
   }
 }

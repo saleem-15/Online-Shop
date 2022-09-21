@@ -5,10 +5,7 @@ import 'package:get/get.dart';
 import 'package:my_shop/models/order_item.dart';
 import 'package:my_shop/screens/track_order/track_order_controller.dart';
 
-enum OrderStatus {
-  inDelievery,
-  completed,
-}
+
 
 class OrderCard extends GetView<TrackOrderController> {
   const OrderCard({Key? key}) : super(key: key);

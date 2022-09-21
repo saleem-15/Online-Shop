@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:my_shop/app_components/utils/helpers.dart';
 
 import 'package:my_shop/config/theme/light_theme_colors.dart';
+import 'package:my_shop/shared/item_info.dart';
 import 'package:my_shop/screens/checkout/checkout_controller.dart';
 
 import '../../../models/cart_item.dart';
@@ -28,7 +30,7 @@ class CheckoutItem extends GetView<CheckoutController> {
             ClipRRect(
               borderRadius: BorderRadius.circular(20.r),
               child: Image.network(
-                cartItem.imageUrl,
+                getFullImageUrl(cartItem.imageUrl),
                 fit: BoxFit.cover,
                 width: 100.sp,
                 height: 100.sp,
@@ -44,21 +46,10 @@ class CheckoutItem extends GetView<CheckoutController> {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Text(
-                        'Werlla Cardigans',
+                        cartItem.productName,
                         style: Theme.of(context).textTheme.bodyText1,
                       ),
-                      Row(
-                        children: [
-                          CircleAvatar(
-                            backgroundColor: Color(cartItem.chosenColor!),
-                            radius: 8.r,
-                          ),
-                          SizedBox(
-                            width: 5.w,
-                          ),
-                          Text('Color | Size = ${cartItem.chosenSize}'),
-                        ],
-                      ),
+                      ItemInfo(cartItem: cartItem),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -67,7 +58,7 @@ class CheckoutItem extends GetView<CheckoutController> {
                             style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 18),
                           ),
                           CircleAvatar(
-                            backgroundColor: searchTextfieldColor,
+                            backgroundColor: lightGrey,
                             radius: 13.sp,
                             child: Text(
                               '${cartItem.quantity}',

@@ -11,32 +11,33 @@ class QuantityChooser extends GetView<ProductController> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      // height: 30.h,
       width: 120.w,
       decoration: BoxDecoration(
-        color: searchTextfieldColor,
+        color: lightGrey,
         borderRadius: BorderRadius.circular(20.r),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         mainAxisSize: MainAxisSize.max,
         children: [
-          IconButton(
-            splashRadius: 5,
-            onPressed: () => controller.reduceQuantityByOne(),
-            icon: ImageIcon(
-              const AssetImage('assets/icons/minus.png'),
-              size: 10.sp,
+          Obx(
+            () => IconButton(
+              splashRadius: 5,
+              onPressed: controller.chosenQuantity.value == 1 ? null : controller.reduceQuantityByOne,
+              icon: ImageIcon(
+                const AssetImage('assets/icons/minus.png'),
+                size: 10.sp,
+              ),
             ),
           ),
           Obx(
             () => Text(
-              '${controller.quantity.value}',
+              '${controller.chosenQuantity.value}',
               style: const TextStyle(fontSize: 20),
             ),
           ),
           IconButton(
-            onPressed: () => controller.increaseQuantityByOne(),
+            onPressed: controller.increaseQuantityByOne,
             splashRadius: 5,
             icon: ImageIcon(
               const AssetImage('assets/icons/plus_.png'),

@@ -18,6 +18,7 @@ class SearchScreen extends GetView<SearchController> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            ///search textField
             Padding(
               padding: EdgeInsets.only(
                 top: 20.h,

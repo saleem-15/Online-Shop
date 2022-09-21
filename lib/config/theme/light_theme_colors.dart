@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 const Color myBlack = Color(0xFF32323D);
 const Color lightRed = Color(0xFFf75555);
 
-const Color searchTextfieldColor = Color(0xfff5f5f5);
+const Color lightGrey = Color(0xfff5f5f5);
 
 class LightThemeColors {
   //light swatch

@@ -1,13 +1,18 @@
 import 'package:get/get.dart';
 import 'package:my_shop/app_components/custom_snackbar.dart';
 import 'package:my_shop/models/shipping_address.dart';
+import 'package:my_shop/models/shipping_type.dart';
 import 'package:my_shop/screens/checkout/services/checkout_service.dart';
 
 import '../../models/cart_item.dart';
 import '../shipping/controllers/shipping_controller.dart';
 
 class CheckoutController extends GetxController {
-  ShippingAddress? shippingAddress;
+  ShippingAddress? _shippingAddress;
+  ShippingAddress? get shippingAddress => _shippingAddress;
+
+  ShippingType? _shippingType;
+  ShippingType? get shippingType => _shippingType;
 
   double get ordersTotalPrice {
     double sum = 0;
@@ -17,39 +22,42 @@ class CheckoutController extends GetxController {
     return sum;
   }
 
-  double? get shippingFee => 10;
+  double? get shippingFee => _shippingType!.price;
+  double get totalFee => ordersTotalPrice + shippingFee!;
 
-  double get totalFee {
-    return ordersTotalPrice + shippingFee!;
-  }
+  late RxList<Rx<CartItem>> cartItems;
 
-  /// if the shipping type is not chosen => the returned value will be null
   @override
   void onReady() {
     super.onReady();
     listenToSelectedAddress();
   }
 
-  late RxList<Rx<CartItem>> cartItems;
-
   void setOrdersList(List<Rx<CartItem>> value) {
     cartItems = value.obs;
   }
 
-  void chooseShippingAddress() {
-    //Todo make sure that the shipping address that appears on the [CheckoutScreen] is selected in the [ShippingAddressScreen]
+  void setShippingType(ShippingType? selectedshippingType) {
+    _shippingType = selectedshippingType;
+    update(['selected_shipping_type_listener']);
+  }
 
+  void setShippingAddress(ShippingAddress? shippingAddress) {
+    _shippingAddress = shippingAddress;
+    update(['selected_address_listener']);
+  }
+
+  void onShippingInfoCardPressed() {
     Get.find<ShippingController>().isEditingMode = false;
     Get.toNamed('/shipping_addresses');
   }
 
   void onContinueToPaymentButtonPressed() {
-    // addOrderService();
-    if (shippingAddress == null) {
-      CustomSnackBar.showCustomErrorSnackBar(message: 'choose shipping address!');
+    final isValid = validateData();
+    if (!isValid) {
       return;
     }
-    checkoutService(shippingAddress!.id);
+    checkoutService(_shippingAddress!.id);
   }
 
   void listenToSelectedAddress() {
@@ -57,9 +65,27 @@ class CheckoutController extends GetxController {
     ever(
       shippingController.shippingAddresses,
       (_) {
-        shippingAddress = shippingController.selectedAddress;
+        _shippingAddress = shippingController.selectedAddress;
         update(['selected_address_listener']);
       },
     );
+  }
+
+  void onShippingTypeCardPressed() {
+    Get.toNamed('/shipping_type');
+  }
+
+  ///validates if user can proceed to payment or not
+  bool validateData() {
+    if (_shippingAddress == null) {
+      CustomSnackBar.showCustomErrorSnackBar(message: 'choose shipping address!');
+      return false;
+    }
+    if (_shippingType == null) {
+      CustomSnackBar.showCustomErrorSnackBar(message: 'choose shipping type!');
+      return false;
+    }
+
+    return true;
   }
 }

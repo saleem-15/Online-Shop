@@ -8,5 +8,6 @@ class CheckoutBindings implements Bindings {
   void dependencies() {
     Get.lazyPut(() => CheckoutController());
     Get.put(ShippingController(), permanent: true);
+    // Get.put(ShippingTypeController(), permanent: true);
   }
 }

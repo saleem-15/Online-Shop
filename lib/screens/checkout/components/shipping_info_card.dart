@@ -18,7 +18,7 @@ class ShippingInfoCard extends GetView<CheckoutController> {
         borderRadius: BorderRadius.circular(25.r),
       ),
       child: InkWell(
-        onTap: controller.chooseShippingAddress,
+        onTap: controller.onShippingInfoCardPressed,
         child: Container(
           height: 70.h,
           padding: EdgeInsets.all(12.sp),

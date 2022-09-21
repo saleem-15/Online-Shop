@@ -12,20 +12,19 @@ const logout = '/Auth/user/logout';
 const checkisEmailUsed = '/Auth/user/email';
 
 //category
-const getAllCategories = '/category/index';
+const getAllCategories = '/category';
 
 //products
-const getAllProducts = '/product/index';
-const getProductDetails = '/product/show/';
-const getCategoryProducts = '/category/show';
+const getAllProducts = '/product';
+const getProductDetails = '/product/';
+const getCategoryProducts = '/category';
 
 //orders
-const getAllUserOrders = '/order/index';
-const addOrder = '/order/store';
-const updateOrder = '/product/index';
+const getAllUserOrders = '/order';
+const addOrder = '/order';
+const updateOrder = '/product';
 //
 const checkout = '/cart/product/checkout';
-
 
 //profile
 const updateUserInfo = '/user/update';
@@ -42,6 +41,9 @@ const addShippingAddress = '/user/address/store';
 const deleteShippingAddress = '/user/address/destroy';
 const updateShippingAddress = '/user/address/update';
 const setShippingAddressAsDefault = '/user/address/default/set';
+
+//shipping type
+const getAllShippingTypes = '/shipping/type';
 
 //search
 const search = '/product/search';

@@ -41,7 +41,7 @@ class ShippingController extends GetxController {
     log('selected address index: $myIndex');
     _selectedAddressIndex = myIndex;
 
-    Get.find<CheckoutController>().shippingAddress = selectedAddress;
+    Get.find<CheckoutController>().setShippingAddress(selectedAddress) ;
     // shippingAddresses[myIndex];
 
     update(['selected_address_listener']);

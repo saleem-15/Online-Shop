@@ -15,7 +15,7 @@ class ShippingTypeScreen extends GetView<ShippingTypeController> {
       appBar: AppBar(
         iconTheme: Theme.of(context).iconTheme,
         title: Text(
-          'Shipping Type',
+          'Shipping Type'.tr,
           style: Theme.of(context).textTheme.headlineSmall,
         ),
       ),
@@ -41,7 +41,7 @@ class ShippingTypeScreen extends GetView<ShippingTypeController> {
         ),
         child: ElevatedButton(
           onPressed: controller.onApplyButtonPressed,
-          child: const Text('Apply'),
+          child: Text('Apply'.tr),
         ),
       ),
       body: SingleChildScrollView(

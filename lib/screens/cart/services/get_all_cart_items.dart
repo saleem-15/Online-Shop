@@ -9,7 +9,7 @@ import '../../../models/cart_item.dart';
 
 Future<List<CartItem>> getAllCartItemsService() async {
   try {
-    final response = await dio.get(getAllUserCartItems);
+    final response = await dio.get(CART_PATH);
     //
     final data = response.data['Data'];
     log('cart items: $data');

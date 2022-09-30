@@ -88,9 +88,13 @@ class ShippingAddressTile extends GetView<ShippingController> {
                     SizedBox(
                       height: 7.h,
                     ),
-                    Text(
-                      address.address,
-                      style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: 13),
+                    Expanded(
+                      child: Text(
+                        address.address,
+                      
+                        maxLines: 1,
+                        style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: 13),
+                      ),
                     ),
                   ],
                 ),

@@ -52,15 +52,15 @@ class ShippingAddressDetailsSheet extends GetView<ShippingAddressDetailsControll
               ),
               Center(
                 child: Text(
-                  'Address Details',
+                  'Address Details'.tr,
                   style: Theme.of(context).textTheme.headline5,
                 ),
               ),
               Divider(
-                height: 40.h,
+                height: 30.h,
               ),
               Text(
-                'Address Name',
+                'Address Name'.tr,
                 style: Theme.of(context).textTheme.headline6,
               ),
               const SizedBox(
@@ -75,7 +75,7 @@ class ShippingAddressDetailsSheet extends GetView<ShippingAddressDetailsControll
                 height: 25,
               ),
               Text(
-                'Address Details',
+                'Address Details'.tr,
                 style: Theme.of(context).textTheme.headline6,
               ),
               TextFormField(
@@ -98,7 +98,7 @@ class ShippingAddressDetailsSheet extends GetView<ShippingAddressDetailsControll
                       ),
                     ),
                   ),
-                  const Text('Make it as the default address'),
+                  Text('Make it as the default address'.tr),
                 ],
               ),
               const SizedBox(
@@ -112,7 +112,7 @@ class ShippingAddressDetailsSheet extends GetView<ShippingAddressDetailsControll
                         onPressed: controller.onDeleteButtonPressed,
                         style: MyStyles.getGreyElevatedButtonStyle()
                             .copyWith(backgroundColor: MaterialStateProperty.all(lightRed)),
-                        child: const Text('Delete'),
+                        child: Text('Delete'.tr),
                       ),
                     ),
                   if (controller.isEditingMode)
@@ -122,7 +122,7 @@ class ShippingAddressDetailsSheet extends GetView<ShippingAddressDetailsControll
                   Expanded(
                     child: ElevatedButton(
                       onPressed: controller.onButtonPressed,
-                      child: Text(controller.isEditingMode ? 'Update' : 'Add'),
+                      child: Text(controller.isEditingMode ? 'Update'.tr : 'Add'.tr),
                     ),
                   ),
                 ],

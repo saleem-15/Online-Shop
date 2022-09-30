@@ -11,6 +11,8 @@ class MySharedPref {
   // static const String _fcmTokenKey = 'fcm_token';
   static const String _currentLocalKey = 'current_local';
   static const String _lightThemeKey = 'is_theme_light';
+  static const String _searchSuggestion = 'search_suggestion';
+
   static const String _userToken = 'user_token';
   static const String _name = 'user_name';
   static const String _nickName = 'user_nickName';
@@ -25,6 +27,27 @@ class MySharedPref {
   static init() async {
     await GetStorage.init();
     _storage = GetStorage();
+  }
+
+  static void setSearchHisotryList(List<String> searchSuggestions) =>
+      _storage.write(_searchSuggestion, searchSuggestions);
+  static List<String> get getRecentSearchs => (_storage.read(_searchSuggestion) ?? []).cast<String>();
+
+  static void addSearch(String suggestion) {
+    final List<String> suggestionsList = getRecentSearchs;
+
+    /// if it exists in the search history  
+    if (suggestionsList.contains(suggestion)) {
+      return;
+    }
+    suggestionsList.add(suggestion);
+    setSearchHisotryList(suggestionsList);
+  }
+
+  static void removeSearch(String suggestion) {
+    final List<String> suggestionsList = getRecentSearchs;
+    suggestionsList.removeWhere((e) => e == suggestion);
+    setSearchHisotryList(suggestionsList);
   }
 
   static void setUserToken(String? userToken) => _storage.write(_userToken, userToken);
@@ -76,6 +99,4 @@ class MySharedPref {
     MySharedPref.setUserPhoneNumber(phone);
     MySharedPref.setUserDateOfBirth(dateOfBirth);
   }
-  // /// save generated fcm token
-
 }

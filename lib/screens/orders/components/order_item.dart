@@ -4,14 +4,14 @@ import 'package:get/get.dart';
 
 import 'package:my_shop/config/theme/light_theme_colors.dart';
 import 'package:my_shop/models/order_item.dart';
-import 'package:my_shop/screens/orders/orders_controller.dart';
+import 'package:my_shop/screens/orders/controllers/completed_orders_controller.dart';
 
 enum OrderStatus {
   inDelievery,
-  completed,
+  Completed,
 }
 
-class OrderItemTile extends GetView<OrdersController> {
+class OrderItemTile extends GetView<CompletedOrdersController> {
   const OrderItemTile({
     Key? key,
     required this.order,
@@ -27,7 +27,9 @@ class OrderItemTile extends GetView<OrdersController> {
         borderRadius: BorderRadius.circular(30.r),
       ),
       child: InkWell(
-        onTap: () => controller.trackOrder(order.orderId),
+        onTap: () {
+          // controller.trackOrder(order.orderId);
+        },
         child: Padding(
           padding: EdgeInsets.all(12.sp),
           child: Row(
@@ -60,7 +62,7 @@ class OrderItemTile extends GetView<OrdersController> {
                             color: lightGrey,
                             borderRadius: BorderRadius.circular(8.r),
                           ),
-                          child: Text(order.status.name),
+                          child: Text(order.status.name.tr),
                         ),
                         Text(
                           '\$${order.price.toStringAsFixed(2)}',
@@ -102,11 +104,11 @@ class OrderInfo extends StatelessWidget {
               SizedBox(
                 width: 5.w,
               ),
-              const Text('Color'),
+              Text('Color'.tr),
             ],
           ),
         if (orderItem.chosenColor != null && orderItem.chosenSize != null) Text(divider),
-        if (orderItem.chosenSize != null) Text('Size = ${orderItem.chosenSize!}'),
+        if (orderItem.chosenSize != null) Text('${'Size'.tr} = ${orderItem.chosenSize!}'),
         if (orderItem.chosenColor != null) Text(divider),
         Text('Qty = ${orderItem.quantity}'),
       ],

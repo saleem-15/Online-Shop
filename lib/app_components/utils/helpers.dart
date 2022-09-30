@@ -12,9 +12,13 @@ String formatErrorMsg(dynamic data) {
   }
 
   final errorsMap = data['Messages'];
+
+  if (errorsMap is String) {
+    return errorsMap;
+  }
   log(data.toString());
 
-  log('error msg type: ${errorsMap.runtimeType}');
+  // log('error msg type: ${errorsMap.runtimeType}');
   //the error map is Map<String,List<String>>
   String errorString = '';
 

@@ -38,7 +38,7 @@ class ProductInfo extends GetView<ProductController> {
         ),
         const Divider(),
         Text(
-          'Description',
+          'Description'.tr,
           style: Theme.of(context).textTheme.headline6,
         ),
         SizedBox(
@@ -68,7 +68,7 @@ class ProductInfo extends GetView<ProductController> {
         Row(
           children: [
             Text(
-              'Quantity',
+              'Quantity'.tr,
               style: Theme.of(context).textTheme.headline6,
             ),
             SizedBox(

@@ -1,7 +1,10 @@
+import 'dart:developer';
+
 import 'package:get/get.dart';
 import 'package:my_shop/app_components/custom_snackbar.dart';
 import 'package:my_shop/models/shipping_address.dart';
 import 'package:my_shop/models/shipping_type.dart';
+import 'package:my_shop/screens/cart/cart_controller.dart';
 import 'package:my_shop/screens/checkout/services/checkout_service.dart';
 
 import '../../models/cart_item.dart';
@@ -22,15 +25,22 @@ class CheckoutController extends GetxController {
     return sum;
   }
 
-  double? get shippingFee => _shippingType!.price;
+  double? get shippingFee => _shippingType?.price;
   double get totalFee => ordersTotalPrice + shippingFee!;
 
   late RxList<Rx<CartItem>> cartItems;
 
-  @override
-  void onReady() {
-    super.onReady();
-    listenToSelectedAddress();
+  Future<void> onContinueToPaymentButtonPressed() async {
+    final isValid = validateData();
+    if (!isValid) {
+      return;
+    }
+
+    log(shippingType!.toString());
+    final isSuccessfull = await checkoutService(_shippingAddress!.id, shippingType!.id);
+    if (isSuccessfull) {
+      Get.find<CartController>().clearCart();
+    }
   }
 
   void setOrdersList(List<Rx<CartItem>> value) {
@@ -39,7 +49,7 @@ class CheckoutController extends GetxController {
 
   void setShippingType(ShippingType? selectedshippingType) {
     _shippingType = selectedshippingType;
-    update(['selected_shipping_type_listener']);
+    update(['selected_shipping_type_listener', 'pricing_listener']);
   }
 
   void setShippingAddress(ShippingAddress? shippingAddress) {
@@ -50,25 +60,6 @@ class CheckoutController extends GetxController {
   void onShippingInfoCardPressed() {
     Get.find<ShippingController>().isEditingMode = false;
     Get.toNamed('/shipping_addresses');
-  }
-
-  void onContinueToPaymentButtonPressed() {
-    final isValid = validateData();
-    if (!isValid) {
-      return;
-    }
-    checkoutService(_shippingAddress!.id);
-  }
-
-  void listenToSelectedAddress() {
-    final shippingController = Get.find<ShippingController>();
-    ever(
-      shippingController.shippingAddresses,
-      (_) {
-        _shippingAddress = shippingController.selectedAddress;
-        update(['selected_address_listener']);
-      },
-    );
   }
 
   void onShippingTypeCardPressed() {

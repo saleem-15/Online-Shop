@@ -12,7 +12,7 @@ class ProfileScreen extends GetView<ProfileController> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Profile',
+          'Profile'.tr,
           style: Theme.of(context).textTheme.headlineSmall,
         ),
       ),
@@ -75,13 +75,13 @@ class ProfileScreen extends GetView<ProfileController> {
             child: ListView(
               children: [
                 ListTile(
-                  onTap:controller.goToEditProfile ,
+                  onTap: controller.goToEditProfile,
                   leading: ImageIcon(
                     const AssetImage('assets/icons/profile_icon_64.png'),
                     color: Theme.of(context).iconTheme.color,
                     size: 28.sp,
                   ),
-                  title: const Text('Edit Profile'),
+                  title: Text('Edit Profile'.tr),
                   trailing: Icon(
                     Icons.arrow_forward_ios_rounded,
                     color: Theme.of(context).iconTheme.color,
@@ -89,13 +89,13 @@ class ProfileScreen extends GetView<ProfileController> {
                   ),
                 ),
                 ListTile(
-                  onTap:controller.goToShippingAddresses,
+                  onTap: controller.goToShippingAddresses,
                   leading: ImageIcon(
                     const AssetImage('assets/icons/location_icon_64.png'),
                     color: Theme.of(context).iconTheme.color,
                     size: 28.sp,
                   ),
-                  title: const Text('Address'),
+                  title: Text('Address'.tr),
                   trailing: Icon(
                     Icons.arrow_forward_ios_rounded,
                     color: Theme.of(context).iconTheme.color,
@@ -109,7 +109,7 @@ class ProfileScreen extends GetView<ProfileController> {
                     color: Theme.of(context).iconTheme.color,
                     size: 28.sp,
                   ),
-                  title: const Text('Notification'),
+                  title: Text('Notification'.tr),
                   trailing: Icon(
                     Icons.arrow_forward_ios_rounded,
                     color: Theme.of(context).iconTheme.color,
@@ -117,13 +117,13 @@ class ProfileScreen extends GetView<ProfileController> {
                   ),
                 ),
                 ListTile(
-                  onTap: () {},
+                  onTap: controller.goToLanguageScreen,
                   leading: ImageIcon(
                     const AssetImage('assets/icons/language_icon_64.png'),
                     color: Theme.of(context).iconTheme.color,
                     size: 28.sp,
                   ),
-                  title: const Text('Language'),
+                  title: Text('Language'.tr),
                   trailing: Icon(
                     Icons.arrow_forward_ios_rounded,
                     color: Theme.of(context).iconTheme.color,
@@ -137,7 +137,7 @@ class ProfileScreen extends GetView<ProfileController> {
                     color: Theme.of(context).iconTheme.color,
                     size: 28.sp,
                   ),
-                  title: const Text('Dark Mode'),
+                  title: Text('Dark Mode'.tr),
                   trailing: Icon(
                     Icons.arrow_forward_ios_rounded,
                     color: Theme.of(context).iconTheme.color,
@@ -151,7 +151,7 @@ class ProfileScreen extends GetView<ProfileController> {
                     color: lightRed,
                     size: 28.sp,
                   ),
-                  title: const Text('Logout'),
+                  title: Text('Logout'.tr),
                   trailing: Icon(
                     Icons.arrow_forward_ios_rounded,
                     color: Theme.of(context).iconTheme.color,

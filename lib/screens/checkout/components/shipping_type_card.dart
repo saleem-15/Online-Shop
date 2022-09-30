@@ -1,5 +1,4 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -31,6 +30,7 @@ class ShippingTypeCard extends StatelessWidget {
               height: 70.sp,
               child: Center(
                 child: shippingType == null
+
                     /// choose shipping card
                     ? Padding(
                         padding: EdgeInsets.all(12.sp),
@@ -53,7 +53,7 @@ class ShippingTypeCard extends StatelessWidget {
                               width: 15.w,
                             ),
                             Text(
-                              'Choose Shipping Type',
+                              'Choose Shipping Type'.tr,
                               style: Theme.of(context).textTheme.headline6,
                             ),
                             const Spacer(),
@@ -64,6 +64,7 @@ class ShippingTypeCard extends StatelessWidget {
                           ],
                         ),
                       )
+
                     /// shipping type info card
                     : ListTile(
                         leading: Container(

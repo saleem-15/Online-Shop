@@ -132,7 +132,7 @@ class ProductDetailsScreen extends GetView<ProductController> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Total price',
+                              'Total price'.tr,
                               style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: 12),
                             ),
                             SizedBox(
@@ -155,7 +155,7 @@ class ProductDetailsScreen extends GetView<ProductController> {
                           width: 220.w,
                           child: ElevatedButton(
                             onPressed: controller.addToCart,
-                            child: const Text('Add to cart'),
+                            child:  Text('Add to cart'.tr),
                           ),
                         ),
                       ],

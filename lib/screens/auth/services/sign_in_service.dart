@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
+import 'package:my_shop/app_components/utils/helpers.dart';
 import 'package:my_shop/storage/my_shared_pref.dart';
 
 import '../../../app_components/constants/api.dart';
@@ -28,8 +29,7 @@ Future<bool> signInService(String email, String password) async {
   } on DioError catch (e) {
     log(e.error.toString());
     CustomSnackBar.showCustomErrorSnackBar(
-      title: 'Error',
-      message: e.response!.data['Messages'].toString(),
+      message: formatErrorMsg(e.response!.data),
     );
   }
 

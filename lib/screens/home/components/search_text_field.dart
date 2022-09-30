@@ -13,7 +13,7 @@ class SearchTextField extends GetView<HomeController> {
         onTap: () => Get.toNamed('/search_screen'),
         readOnly: true,
         decoration: InputDecoration(
-          hintText: 'Search',
+          hintText: 'Search'.tr,
           prefixIcon: Padding(
             padding: const EdgeInsets.only(left: 10),
             child: IconButton(

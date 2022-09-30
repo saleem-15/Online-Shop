@@ -74,7 +74,7 @@ class ShippingTypeTile extends GetView<ShippingTypeController> {
                       height: 7.h,
                     ),
                     Text(
-                      'Estimated Arrival, ${shippingType.estimatedDelivery}',
+                      '${'Estimated Arrival'.tr}, ${shippingType.estimatedDelivery}',
                       style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: 13),
                     ),
                   ],

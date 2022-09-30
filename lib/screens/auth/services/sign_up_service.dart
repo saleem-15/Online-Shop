@@ -5,6 +5,7 @@ import 'package:dio/dio.dart';
 import 'package:my_shop/app_components/custom_snackbar.dart';
 
 import '../../../app_components/constants/api.dart';
+import '../../../app_components/utils/helpers.dart';
 import '../../../storage/my_shared_pref.dart';
 
 /// at the first index it returns the id of the user ,
@@ -41,27 +42,10 @@ Future<List> signupService(String name, String nickName, String email, String pa
     return [userId, true];
   } on DioError catch (e) {
     CustomSnackBar.showCustomErrorSnackBar(
-      title: 'Error',
-      message: _formatErrorMsg(e.response!.data['Messages']),
+      message: formatErrorMsg(e.response!.data),
     );
   }
 
   return [userId, false];
 }
 
-String _formatErrorMsg(dynamic errorsMap) {
-  //the error map is Map<String,List<String>>
-  String errorString = '';
-
-  for (var value in errorsMap.values) {
-    for (var e in (value as List)) {
-      log('value: $e');
-      errorString += '$e\n';
-    }
-  }
-
-  // remove the last (\n)
-  errorString = errorString.substring(0, errorString.length - 2);
-
-  return errorString;
-}

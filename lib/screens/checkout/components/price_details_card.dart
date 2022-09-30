@@ -24,7 +24,7 @@ class PriceDetailsCard extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text('Amount'),
+                Text('Amount'.tr),
                 GetBuilder<CheckoutController>(
                   assignId: true,
                   id: 'pricing_listener',
@@ -41,15 +41,15 @@ class PriceDetailsCard extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
-                  'Shipping',
+                Text(
+                  'Shipping'.tr,
                 ),
                 GetBuilder<CheckoutController>(
                   assignId: true,
                   id: 'pricing_listener',
                   builder: (controller) {
                     return Text(
-                      controller.shippingFee == null
+                      controller.shippingType == null
                           ? '-'
                           : '\$${controller.shippingFee!.toStringAsFixed(2)}',
                       style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 15.sp),
@@ -64,16 +64,13 @@ class PriceDetailsCard extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text('Total'),
+                Text('Total'.tr),
                 GetBuilder<CheckoutController>(
                   assignId: true,
                   id: 'pricing_listener',
                   builder: (controller) {
                     return Text(
-                       controller.shippingFee == null
-                          ? '-'
-                          :
-                     '\$${controller.totalFee.toStringAsFixed(2)}' ,
+                      controller.shippingFee == null ? '-' : '\$${controller.totalFee.toStringAsFixed(2)}',
                       style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 15.sp),
                     );
                   },

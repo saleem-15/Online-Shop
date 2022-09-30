@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_shop/main.dart';
 
+import '../../../app.dart';
 import '../screens/signup_screen.dart';
 import '../services/sign_in_service.dart';
 

@@ -9,7 +9,7 @@ import '../../../app_components/custom_snackbar.dart';
 Future<void> addProductToCartService(String productId, String colorId, String? sizeId, int quantity) async {
   try {
     final response = await dio.post(
-      addProductToCart,
+      CART_PATH,
       queryParameters: {
         'product_id': productId,
         'color_id': colorId,
@@ -23,7 +23,7 @@ Future<void> addProductToCartService(String productId, String colorId, String? s
 
     CustomSnackBar.showCustomSnackBar(message: 'The products was added to the cart');
   } on DioError catch (e) {
-    log(e.error.toString());
+    log(e.response.toString());
     CustomSnackBar.showCustomErrorSnackBar(
       title: 'Error',
       message: formatErrorMsg(e.response!.data),

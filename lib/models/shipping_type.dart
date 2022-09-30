@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class ShippingType {
@@ -8,7 +9,9 @@ class ShippingType {
   double price;
   int minArrivalTime;
   int maxArrivalTime;
+  
 
+  
   String get estimatedDelivery {
     String result = '';
     DateTime minTime = DateTime.now().add(Duration(days: minArrivalTime));
@@ -37,7 +40,7 @@ class ShippingType {
 
   factory ShippingType.fromMap(Map<String, dynamic> map) {
     return ShippingType(
-      id: map['id'].toString(),
+      id: map['shippingType_id'].toString()..printInfo(),
       name: map['title'] as String,
       price: (map['price'] as num).toDouble(),
       minArrivalTime: map['min_arrival_days'] as int,

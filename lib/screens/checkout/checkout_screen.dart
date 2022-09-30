@@ -17,7 +17,7 @@ class CheckoutScreen extends GetView<CheckoutController> {
       appBar: AppBar(
         iconTheme: Theme.of(context).iconTheme,
         title: Text(
-          'Checkout',
+          'Checkout'.tr,
           style: Theme.of(context).textTheme.headlineSmall,
         ),
       ),
@@ -31,7 +31,7 @@ class CheckoutScreen extends GetView<CheckoutController> {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10),
                 child: Text(
-                  'Shipping Address',
+                  'Shipping Address'.tr,
                   style: Theme.of(context).textTheme.headline6,
                 ),
               ),
@@ -43,7 +43,7 @@ class CheckoutScreen extends GetView<CheckoutController> {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10),
                 child: Text(
-                  'Order list',
+                  'Order list'.tr,
                   style: Theme.of(context).textTheme.headline6,
                 ),
               ),
@@ -61,7 +61,7 @@ class CheckoutScreen extends GetView<CheckoutController> {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10),
                 child: Text(
-                  'Choose Shipping',
+                  'Shipping Type'.tr,
                   style: Theme.of(context).textTheme.headline6,
                 ),
               ),
@@ -73,13 +73,13 @@ class CheckoutScreen extends GetView<CheckoutController> {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10),
                 child: Text(
-                  'Promo Code',
+                  'Promo Code'.tr,
                   style: Theme.of(context).textTheme.headline6,
                 ),
               ),
-              const TextField(
+              TextField(
                 decoration: InputDecoration(
-                  hintText: 'Enter Promo Code',
+                  hintText: 'Enter Promo Code'.tr,
                 ),
               ),
               SizedBox(height: 20.sp),
@@ -88,7 +88,7 @@ class CheckoutScreen extends GetView<CheckoutController> {
               ElevatedButton.icon(
                 onPressed: controller.onContinueToPaymentButtonPressed,
                 label: const Icon(Icons.arrow_forward),
-                icon: const Text('Continue to payment'),
+                icon: Text('Continue To Payment'.tr),
               ),
               SizedBox(height: 20.sp),
             ],

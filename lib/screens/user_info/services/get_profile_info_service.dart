@@ -10,7 +10,7 @@ import '../../../storage/my_shared_pref.dart';
 Future<void> getProfileInfoService() async {
   try {
     final response = await dio.put(
-      updateUserInfo,
+      USER_PATH,
     );
 
     final data = response.data['Data'];
@@ -26,7 +26,6 @@ Future<void> getProfileInfoService() async {
   } on DioError catch (e) {
     log(e.response!.data.toString());
     CustomSnackBar.showCustomErrorSnackBar(
-      title: 'Error',
       message: formatErrorMsg(e.response!.data['Messages']),
     );
   }

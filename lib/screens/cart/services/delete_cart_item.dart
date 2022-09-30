@@ -8,7 +8,7 @@ import '../../../app_components/custom_snackbar.dart';
 
 Future<void> deleteCartItemService(String cartItemId) async {
   try {
-    final response = await dio.delete('$deleteCartItem/$cartItemId');
+    final response = await dio.delete('$CART_PATH/$cartItemId');
     //
     final data = response.data['Data'];
     log(data.toString());

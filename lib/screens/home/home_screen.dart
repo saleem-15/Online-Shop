@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'components/categories.dart';
 import 'components/products.dart';
 import 'components/search_text_field.dart';
@@ -25,7 +26,7 @@ class HomeScreen extends StatelessWidget {
                 height: 15.h,
               ),
               Text(
-                'Categories',
+                'Categories'.tr,
                 style: Theme.of(context).textTheme.headline6,
               ),
               SizedBox(
@@ -38,7 +39,7 @@ class HomeScreen extends StatelessWidget {
               ),
               const Expanded(
                 child: Products(),
-              )
+              ),
             ],
           ),
         ),

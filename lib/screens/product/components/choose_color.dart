@@ -20,7 +20,7 @@ class ChooseColor extends GetView<ProductController> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Colors',
+          'Colors'.tr,
           style: Theme.of(context).textTheme.headline6,
         ),
         SizedBox(

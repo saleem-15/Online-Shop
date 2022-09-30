@@ -12,19 +12,15 @@ import '../../../app_components/custom_snackbar.dart';
 /// returnes true if its updated successfully
 Future<bool> editCartItemService(String itemId, String? colorId, String? sizeId, int? quantity) async {
   try {
-    log('item id: $itemId');
-    final response = await dio.put(
-      '$updateCartItem/$itemId',
+    await dio.put(
+      '$CART_PATH/$itemId',
       queryParameters: {
-        // 'product_id': itemId,
         if (colorId != null) 'color_id': colorId,
         if (sizeId != null) 'size_id': sizeId,
         if (quantity != null) 'quantity': quantity,
       },
     );
-    //
-    final data = response.data['Data'];
-    log(data.toString());
+
     return true;
   } on DioError catch (e) {
     log(e.response.toString());

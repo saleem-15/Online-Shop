@@ -17,7 +17,7 @@ class ShippingAddressScreen extends GetView<ShippingController> {
       appBar: AppBar(
         iconTheme: Theme.of(context).iconTheme,
         title: Text(
-          'Shipping Address',
+          'Shipping Address'.tr,
           style: Theme.of(context).textTheme.headlineSmall,
         ),
       ),
@@ -45,7 +45,7 @@ class ShippingAddressScreen extends GetView<ShippingController> {
               ),
               child: ElevatedButton(
                 onPressed: controller.onApplyButtonPressed,
-                child: const Text('Apply'),
+                child: Text('Apply'.tr),
               ),
             ),
       body: SingleChildScrollView(
@@ -67,8 +67,8 @@ class ShippingAddressScreen extends GetView<ShippingController> {
                   () => controller.shippingAddresses.isEmpty && controller.isLoading.isFalse
                       ? SizedBox(
                           height: 400.h,
-                          child: const Center(
-                            child: Text('You dont have any addresses'),
+                          child:  Center(
+                            child: Text('You dont have any addresses'.tr),
                           ),
                         )
                       : const SizedBox.shrink(),
@@ -89,7 +89,7 @@ class ShippingAddressScreen extends GetView<ShippingController> {
                     onPressed: controller.onAddNewAddressPressed,
                     style: MyStyles.getGreyElevatedButtonStyle(),
                     child: Text(
-                      'Add New Address',
+                      'Add New Address'.tr,
                       style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 18),
                     ),
                   ),

@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 import 'package:dio/dio.dart';
 import 'package:my_shop/storage/my_shared_pref.dart';
 
@@ -6,47 +8,38 @@ late final apiUrl;
 const apikey = 'p@ssword123';
 
 //auth
-const signIn = '/Auth/user/login';
-const signUp = '/Auth/user/register';
-const logout = '/Auth/user/logout';
-const checkisEmailUsed = '/Auth/user/email';
+const signIn = '/auth/customer/login';
+const signUp = '/auth/customer/register';
+const logout = '/auth/customer/logout';
+const checkisEmailUsed = '/auth/customer/email';
 
 //category
-const getAllCategories = '/category';
+const CATEGORY_PATH = '/category'; //used to get the categories && and category products
 
 //products
-const getAllProducts = '/product';
-const getProductDetails = '/product/';
-const getCategoryProducts = '/category';
+const PRODUCTS_PATH = '/product';
 
 //orders
-const getAllUserOrders = '/order';
-const addOrder = '/order';
-const updateOrder = '/product';
-//
-const checkout = '/cart/product/checkout';
+const InCOMPLETE_ORDER_PATH = '/order';
+const COMPLETED_ORDERS_PATH = '/order/complete';
+
+//checkout
+const CHECKOUT_PATH = '/cart/item/checkout';
 
 //profile
-const updateUserInfo = '/user/update';
+const USER_PATH = '/customer/update';
 
 //cart
-const getAllUserCartItems = '/cart/product/index';
-const addProductToCart = '/cart/product/store';
-const updateCartItem = '/cart/product/update';
-const deleteCartItem = '/cart/product/destroy';
+const CART_PATH = '/cart/item';
 
 //shipping address
-const getAllUserShippingAddresses = '/user/address/index';
-const addShippingAddress = '/user/address/store';
-const deleteShippingAddress = '/user/address/destroy';
-const updateShippingAddress = '/user/address/update';
-const setShippingAddressAsDefault = '/user/address/default/set';
+const SHIPPING_ADDRESS_PATH = '/shipping/address';
 
 //shipping type
-const getAllShippingTypes = '/shipping/type';
+const SHIPPIN_TYPE_PATH = '/shipping/type';
 
 //search
-const search = '/product/search';
+const SEARCH_PATH = '/product/search';
 
 final dio = Dio(
   BaseOptions(

@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 
 import '../../../app_components/constants/api.dart';
 import '../../../app_components/custom_snackbar.dart';
@@ -8,8 +9,8 @@ import '../../../app_components/utils/helpers.dart';
 
 Future<void> setShippingAddressAsDefaultService(String addressId) async {
   try {
-    final response = await dio.post(
-      setShippingAddressAsDefault,
+    await dio.post(
+      SHIPPING_ADDRESS_PATH,
       queryParameters: {
         'address_id': addressId,
       },
@@ -17,12 +18,12 @@ Future<void> setShippingAddressAsDefaultService(String addressId) async {
     //
 
     CustomSnackBar.showCustomSnackBar(
-      message: 'The address was set As default',
+      message: 'The address was set As default'.tr,
     );
   } on DioError catch (e) {
     log(e.response!.data.toString());
     CustomSnackBar.showCustomErrorSnackBar(
-      message: formatErrorMsg(e.response!.data['Messages']),
+      message: formatErrorMsg(e.response!.data),
     );
   }
 }

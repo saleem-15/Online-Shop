@@ -7,18 +7,27 @@ import '../../../app_components/constants/api.dart';
 import '../../../models/product_preview.dart';
 import '../home_controller.dart';
 
-Future<List<ProductPreview>> getProductsService() async {
+Future<List<ProductPreview>> fetchProductsService(int pageNum) async {
   try {
-    final response = await dio.get(getAllProducts);
+    final response = await dio.get(
+      PRODUCTS_PATH,
+      queryParameters: {'page': pageNum},
+    );
 
-    final responeseData = response.data['Data'];
-    final productsData = responeseData as List;
+
+    final data = response.data['data'];
+    final metaData = response.data['meta'];
+    final numOfAllProducts = metaData['total'] as int;
+
+    final numOfPages = metaData['last_page'] as int;
+    Get.find<HomeController>().setNumOfPages = numOfPages;
+    Get.find<HomeController>().totalNumOfProducts = numOfAllProducts;
 
     if (Get.find<HomeController>().isLoggingInfo) {
-      log('products: $responeseData');
+      log('products: $data');
     }
 
-    return convertDataToProductPreviewList(productsData);
+    return convertDataToProductPreviewList(data as List);
   } on DioError {
     rethrow;
   }

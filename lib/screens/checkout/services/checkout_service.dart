@@ -1,23 +1,28 @@
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:my_shop/app_components/custom_snackbar.dart';
 import 'package:my_shop/app_components/utils/helpers.dart';
 
 import '../../../app_components/constants/api.dart';
 
-Future<void> checkoutService(String shippingAddressId) async {
-  log('address id: $shippingAddressId');
+///returns true if successeded
+Future<bool> checkoutService(String shippingAddressId, String shippingTypeId) async {
   try {
-    final response = await dio.post(
-      checkout,
+    await dio.post(
+      CHECKOUT_PATH,
       queryParameters: {
         'address_id': shippingAddressId,
+        'shippingType_id': shippingTypeId,
       },
     );
+        CustomSnackBar.showCustomSnackBar(message: 'The order was purshased successfully'.tr);
+    return true;
 
-    log('${response.data['Data']}');
   } on DioError catch (e) {
+    log(e.response!.data.toString());
     CustomSnackBar.showCustomErrorSnackBar(message: formatErrorMsg(e.response!.data));
+    return false;
   }
 }

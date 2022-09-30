@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:get/get.dart';
 import 'package:my_shop/models/cart_item.dart';
 import 'package:my_shop/screens/cart/components/confirm_delete_item_bottom_sheet.dart';
@@ -28,6 +26,10 @@ class CartController extends GetxController {
     getCartItems();
 
     super.onReady();
+  }
+
+  void clearCart() {
+    cartItems.clear();
   }
 
   void addNewCartITem(Product product, int chosenQuantity, String selectedColorId, String? selectedSizeId) {
@@ -96,41 +98,3 @@ class CartController extends GetxController {
     await getCartItems();
   }
 }
-
-
-
-
-/*
-[
-    CartItem(
-      price: 385,
-      productId: '1',
-      productName: 'Wrella Cardigans',
-      quantity: 1,
-      imageUrl:
-          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQR6mNeolQnmtuuUJ3SwppHCm0CfRXTBECfOw&usqp=CAU',
-      chosenColor: Colors.deepPurple[300]!.value,
-      chosenSize: 'M',
-    ).obs,
-    CartItem(
-      price: 385,
-      productId: '2',
-      productName: 'Wrella Cardigans',
-      quantity: 3,
-      imageUrl:
-          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQR6mNeolQnmtuuUJ3SwppHCm0CfRXTBECfOw&usqp=CAU',
-      chosenColor: 0xFF46E4CC,
-      chosenSize: 'S',
-    ).obs,
-    CartItem(
-      price: 385,
-      productId: '3',
-      productName: 'Wrella Cardigans',
-      quantity: 1,
-      imageUrl:
-          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQR6mNeolQnmtuuUJ3SwppHCm0CfRXTBECfOw&usqp=CAU',
-      chosenColor: 0xFF46E4CC,
-      chosenSize: 'L',
-    ).obs,
-  ].obs
-*/

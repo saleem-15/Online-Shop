@@ -22,4 +22,8 @@ class ProfileController extends GetxController {
     Get.find<ShippingController>().isEditingMode = true;
     Get.toNamed('/shipping_addresses');
   }
+
+  void goToLanguageScreen() {
+    Get.toNamed('/language');
+  }
 }

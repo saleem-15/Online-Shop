@@ -14,7 +14,7 @@ class UserInfoScreen extends GetView<UserInfoController> {
       appBar: AppBar(
         iconTheme: Theme.of(context).iconTheme,
         title: Text(
-          'User Info',
+          'User Info'.tr,
           style: Theme.of(context).textTheme.headlineSmall,
         ),
       ),
@@ -69,8 +69,8 @@ class UserInfoScreen extends GetView<UserInfoController> {
                     TextFormField(
                       controller: controller.nameController,
 
-                      decoration: const InputDecoration(
-                        hintText: 'Full Name',
+                      decoration: InputDecoration(
+                        hintText: 'Full Name'.tr,
                       ),
                       validator: controller.nameValidator,
                       textInputAction: TextInputAction.next, // Moves focus to next field
@@ -80,8 +80,8 @@ class UserInfoScreen extends GetView<UserInfoController> {
                     ),
                     TextFormField(
                       controller: controller.nickNameController,
-                      decoration: const InputDecoration(
-                        hintText: 'Nickname',
+                      decoration: InputDecoration(
+                        hintText: 'Nickname'.tr,
                       ),
                       validator: controller.nickNameValidator,
                       textInputAction: TextInputAction.next, // Moves focus to next field
@@ -108,8 +108,8 @@ class UserInfoScreen extends GetView<UserInfoController> {
                     TextFormField(
                       focusNode: controller.emailFocus,
                       controller: controller.emailController,
-                      decoration: const InputDecoration(
-                        hintText: 'Email',
+                      decoration:  InputDecoration(
+                        hintText: 'Email'.tr,
                       ),
                       validator: controller.emailValidator,
                       textInputAction: TextInputAction.next, // Moves focus to next field
@@ -119,8 +119,8 @@ class UserInfoScreen extends GetView<UserInfoController> {
                     ),
                     TextFormField(
                       controller: controller.phoneNumberController,
-                      decoration: const InputDecoration(
-                        hintText: 'Phone Number',
+                      decoration:  InputDecoration(
+                        hintText: 'Phone Number'.tr,
                       ),
                       validator: controller.phoneNumberValidator,
                       textInputAction: TextInputAction.done, // Moves focus to next field

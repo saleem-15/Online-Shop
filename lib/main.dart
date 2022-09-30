@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,27 +10,25 @@ import 'package:my_shop/screens/track_order/track_order_screen.dart';
 
 import 'app_components/constants/api.dart';
 import 'app_components/utils/device_info.dart';
-import 'config/theme/light_theme_colors.dart';
 import 'config/theme/my_theme.dart';
 import '../screens/cart/cart_controller.dart';
-import '../screens/cart/cart_screen.dart';
 import '../screens/checkout/checkout_screen.dart';
-import '../screens/home/home_screen.dart';
 import '../screens/product/product_controller.dart';
 import '../screens/product/product_details_screen.dart';
-import '../screens/search/search_screen.dart';
+import 'config/translations/localization_service.dart';
+import 'app.dart';
 import 'screens/checkout/checkout_bindings.dart';
+import 'screens/language/language_controller.dart';
+import 'screens/language/language_screen.dart';
+import 'screens/orders/controllers/ongoing_orders_controller.dart';
 import 'screens/shipping/shipping_address_screen.dart';
 import 'screens/auth/controllers/signin_controller.dart';
 import 'screens/auth/controllers/signup_controller.dart';
 import 'screens/checkout/checkout_controller.dart';
 import 'screens/home/home_controller.dart';
-import 'screens/orders/orders_controller.dart';
-import 'screens/orders/orders_screen.dart';
+import 'screens/orders/controllers/completed_orders_controller.dart';
 import 'screens/product/product_binding.dart';
 import 'screens/profile/profile_controller.dart';
-import 'screens/profile/profile_screen.dart';
-import 'screens/search/search_controller.dart';
 import 'screens/shipping/shipping_binding.dart';
 import 'screens/shipping_type/shipping_type_controller.dart';
 import 'screens/shipping_type/shipping_type_screen.dart';
@@ -48,6 +44,7 @@ Future<void> main() async {
   apiUrl = DeviceName.deviceName == 'sdk_gphone64_x86_64'
       ? 'http://192.168.56.1:80/laravel9/e-commerce/public/api'
       : 'https://a52d-37-75-213-177.eu.ngrok.io/laravel9/e-commerce/public/api';
+
   initControllers();
   runApp(const MainApp());
 }
@@ -58,8 +55,9 @@ void initControllers() {
   Get.lazyPut(() => ProductController(), fenix: true);
   Get.lazyPut(() => CartController(), fenix: true);
   Get.lazyPut(() => CheckoutController(), fenix: true);
-  Get.lazyPut(() => OrdersController(), fenix: true);
-  Get.lazyPut(() => SearchController(), fenix: true);
+  Get.lazyPut(() => CompletedOrdersController(), fenix: true);
+  Get.lazyPut(() => OngoingOrdersController(), fenix: true);
+  // Get.lazyPut(() => SearchController(), fenix: true);
   Get.lazyPut(() => SigninController(), fenix: true);
   Get.lazyPut(() => SignupController(), fenix: true);
   Get.lazyPut(() => TrackOrderController(), fenix: true);
@@ -67,6 +65,7 @@ void initControllers() {
   Get.lazyPut(() => UserInfoController(), fenix: true);
   Get.lazyPut(() => ShippingAddressDetailsController(), fenix: true);
   Get.lazyPut(() => ShippingTypeController(), fenix: true);
+  Get.lazyPut(() => LanguageController(), fenix: true);
 }
 
 class MainApp extends StatelessWidget {
@@ -78,17 +77,23 @@ class MainApp extends StatelessWidget {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
-    // addProductService();
-    log('This is Outside My APP');
+
+    // MySharedPref.addSearchSuggestion('g');
+    // for (var element in MySharedPref.getRecentSearchs) {
+    //   log(element);
+    // }
+
     return ScreenUtilInit(
       builder: (context, child) => GetMaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'My Shop',
+        translations: LocalizationService(),
+        locale: LocalizationService.getCurrnetLanguage,
         getPages: [
-          GetPage(
-            name: '/search_screen',
-            page: () => const SearchScreen(),
-          ),
+          // GetPage(
+          //   name: '/search_screen',
+          //   page: () => const SearchScreen(),
+          // ),
           GetPage(
             name: '/shipping_addresses',
             page: () => const ShippingAddressScreen(),
@@ -119,6 +124,11 @@ class MainApp extends StatelessWidget {
             page: () => const ShippingTypeScreen(),
             // binding: ShippingTypeBindings(),
           ),
+          GetPage(
+            name: '/language',
+            page: () => const LanguageScreen(),
+            // binding: ShippingTypeBindings(),
+          ),
         ],
         builder: (context, widget) {
           bool themeIsLight = MySharedPref.getThemeIsLight();
@@ -135,82 +145,10 @@ class MainApp extends StatelessWidget {
           assignId: true,
           id: 'auth_listener',
           builder: (controller) {
-            return controller.isUserSignedIn ? MyApp() : const SigninScreen();
+            return controller.isUserSignedIn ? const MyApp() : const SigninScreen();
           },
         ),
       ),
     );
-  }
-}
-
-class MyApp extends StatelessWidget {
-  MyApp({Key? key}) : super(key: key);
-
-  final Rx<int> selectedIndex = 0.obs;
-
-  @override
-  Widget build(BuildContext context) {
-    return Obx(() {
-      selectedIndex.value;
-      return Scaffold(
-        bottomNavigationBar: Container(
-          clipBehavior: Clip.antiAlias,
-          padding: EdgeInsets.symmetric(horizontal: 10.h, vertical: 5.h),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(30.r),
-              topRight: Radius.circular(30.r),
-            ),
-          ),
-          child: BottomNavigationBar(
-            elevation: 0,
-            backgroundColor: Colors.transparent,
-            type: BottomNavigationBarType.fixed,
-            currentIndex: selectedIndex.value,
-            onTap: (index) => selectedIndex.value = index,
-            selectedItemColor: myBlack,
-            unselectedItemColor: Colors.grey[400],
-            items: const [
-              BottomNavigationBarItem(
-                icon: ImageIcon(AssetImage('assets/icons/home.png')),
-                label: 'Home',
-              ),
-              BottomNavigationBarItem(
-                icon: ImageIcon(AssetImage('assets/cart.png')),
-                label: 'Cart',
-              ),
-              BottomNavigationBarItem(
-                icon: ImageIcon(AssetImage('assets/icons/shoping_bag.png')),
-                label: 'Orders',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.person),
-                label: 'Profile',
-              ),
-            ],
-          ),
-        ),
-        body: Builder(
-          builder: (_) {
-            switch (selectedIndex.value) {
-              case 0:
-                return const HomeScreen();
-
-              case 1:
-                return const CartScreen();
-
-              case 2:
-                return const OrdersScreen();
-
-              case 3:
-                return const ProfileScreen();
-
-              default:
-                return const HomeScreen();
-            }
-          },
-        ),
-      );
-    });
   }
 }

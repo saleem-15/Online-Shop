@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 
 import '../models/cart_item.dart';
 
@@ -26,11 +27,11 @@ class ItemInfo extends StatelessWidget {
               SizedBox(
                 width: 5.w,
               ),
-              const Text('Color'),
+              Text('Color'.tr),
             ],
           ),
         if (cartItem.chosenColor != null && cartItem.chosenSize != null) Text(divider),
-        if (cartItem.chosenSize != null) Text('Size = ${cartItem.chosenSize!.size}'),
+        if (cartItem.chosenSize != null) Text('${'Size'.tr} = ${cartItem.chosenSize!.size}'),
       ],
     );
   }

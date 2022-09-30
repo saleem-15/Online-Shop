@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:my_shop/screens/auth/screens/signin_screen.dart';
 import 'package:my_shop/storage/my_shared_pref.dart';
 
-import '../../../main.dart';
+import '../../../app.dart';
 import '../../user_info/user_info_controller.dart';
 import '../../user_info/user_info_screen.dart';
 import '../services/chech_is_email_used_service.dart';
@@ -57,7 +57,7 @@ class SignupController extends GetxController {
     final isSuccessfull = results[1];
 
     if (isSuccessfull) {
-      Get.off(() => MyApp());
+      Get.off(() => const MyApp());
     }
   }
 

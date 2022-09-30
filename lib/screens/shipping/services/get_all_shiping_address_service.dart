@@ -9,7 +9,7 @@ import '../../../app_components/utils/helpers.dart';
 
 Future<List<ShippingAddress>> getAllShippingAddressService() async {
   try {
-    final response = await dio.get(getAllUserShippingAddresses);
+    final response = await dio.get(SHIPPING_ADDRESS_PATH);
     final data = response.data['Data'];
     log(data.toString());
 
@@ -17,8 +17,7 @@ Future<List<ShippingAddress>> getAllShippingAddressService() async {
   } on DioError catch (e) {
     log(e.response!.data.toString());
     CustomSnackBar.showCustomErrorSnackBar(
-      title: 'Error',
-      message: formatErrorMsg(e.response!.data['Messages']),
+      message: formatErrorMsg(e.response!.data),
     );
     return [];
   }

@@ -16,7 +16,7 @@ class CartScreen extends GetView<CartController> {
         return Scaffold(
           appBar: AppBar(
             title: Text(
-              'My cart',
+              'My Cart'.tr,
               style: Theme.of(context).textTheme.headlineSmall,
             ),
           ),
@@ -44,7 +44,7 @@ class CartScreen extends GetView<CartController> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Total price',
+                      'Total price'.tr,
                       style: Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: 12),
                     ),
                     SizedBox(
@@ -64,7 +64,7 @@ class CartScreen extends GetView<CartController> {
                     () => ElevatedButton.icon(
                       onPressed: controller.cartItems.isEmpty ? null : controller.checkout,
                       label: const Icon(Icons.arrow_forward),
-                      icon: const Text('Checkout'),
+                      icon: Text('Checkout'.tr),
                       style: ButtonStyle(
                         minimumSize: MaterialStateProperty.all(const Size(100, 55)),
                         shape: MaterialStateProperty.all(

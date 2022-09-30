@@ -1,9 +1,11 @@
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 
 import '../../../app_components/constants/api.dart';
 import '../../../app_components/custom_snackbar.dart';
+import '../../../app_components/utils/helpers.dart';
 
 Future<bool> checkIsEmailUsedService(
   String email,
@@ -21,15 +23,13 @@ Future<bool> checkIsEmailUsedService(
     isEmailUsed = data['taken'].toString() == 'true' ? true : false;
     if (isEmailUsed) {
       CustomSnackBar.showCustomErrorSnackBar(
-        title: 'Error',
-        message: 'The email is already being used !',
+        message: 'The email is already being used !'.tr,
       );
     }
   } on DioError catch (e) {
     log(e.error.toString());
     CustomSnackBar.showCustomErrorSnackBar(
-      title: 'Error',
-      message: e.response!.data['Messages'].toString(),
+      message: formatErrorMsg(e.response!.data),
     );
   }
 

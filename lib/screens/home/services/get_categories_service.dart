@@ -9,7 +9,7 @@ import '../../../models/category.dart';
 
 Future<List<Category>> getCategoriesService() async {
   try {
-    final response = await dio.get(getAllCategories);
+    final response = await dio.get(CATEGORY_PATH);
 
     final jsonData = response.data;
 

@@ -38,19 +38,19 @@ class ConfirmLogoutSheet extends GetView<AuthController> {
             ),
           ),
           SizedBox(
-            height: 25.h,
+            height: 20.h,
           ),
           Text(
-            'Logout',
+            'Logout'.tr,
             style: Theme.of(context).textTheme.headline5!.copyWith(
                   color: lightRed,
                 ),
           ),
           Divider(
-            height: 40.h,
+            height: 30.h,
           ),
           Text(
-            'Are you sure you want to log out?',
+            'Are you sure you want to log out?'.tr,
             style: Theme.of(context).textTheme.bodyLarge!.copyWith(fontSize: 16),
           ),
           SizedBox(
@@ -63,7 +63,7 @@ class ConfirmLogoutSheet extends GetView<AuthController> {
                   style: MyStyles.getGreyElevatedButtonStyle(),
                   onPressed: () => Get.back(),
                   child: Text(
-                    'Cancel',
+                    'Cancel'.tr,
                     style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 18),
                   ),
                 ),
@@ -74,7 +74,7 @@ class ConfirmLogoutSheet extends GetView<AuthController> {
               Flexible(
                 child: ElevatedButton(
                   onPressed: controller.logout,
-                  child: const Text('Yes, Logout'),
+                  child: Text('Yes, Logout'.tr),
                 ),
               ),
             ],

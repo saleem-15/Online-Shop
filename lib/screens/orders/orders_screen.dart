@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:my_shop/config/theme/light_theme_colors.dart';
 
 import 'components/completed_orders_tab.dart';
@@ -16,7 +17,7 @@ class OrdersScreen extends StatelessWidget {
         appBar: AppBar(
           iconTheme: Theme.of(context).iconTheme,
           title: Text(
-            'Orders',
+            'Orders'.tr,
             style: Theme.of(context).textTheme.headlineSmall,
           ),
           actions: [
@@ -33,13 +34,13 @@ class OrdersScreen extends StatelessWidget {
             tabs: [
               Tab(
                 child: Text(
-                  'Ongoing',
+                  'On Going'.tr,
                   style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 15.sp),
                 ),
               ),
               Tab(
                 child: Text(
-                  'Completed',
+                  'Completed'.tr,
                   style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 15.sp),
                 ),
               ),

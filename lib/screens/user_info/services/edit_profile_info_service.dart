@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:my_shop/app_components/custom_snackbar.dart';
 
 import '../../../app_components/constants/api.dart';
@@ -12,7 +13,7 @@ Future<void> editProfileInfoService(
     String name, String nickName, String email, String phone, String dateOfBirth, File? image) async {
   try {
     final response = await dio.put(
-      updateUserInfo,
+      USER_PATH,
       queryParameters: {
         'name': name,
         //TODO send image parameter Only if the user changed the image
@@ -28,8 +29,7 @@ Future<void> editProfileInfoService(
     MySharedPref.storeUserData(name, nickName, email, phone, dateOfBirth);
 
     CustomSnackBar.showCustomSnackBar(
-      title: 'Done successfully!',
-      message: 'Your info has been updated successfully',
+      message: 'Your info has been updated successfully'.tr,
     );
   } on DioError catch (e) {
     log(e.response!.data.toString());

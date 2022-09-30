@@ -3,10 +3,11 @@
 import 'dart:developer';
 
 import 'package:get/get.dart';
-import 'package:my_shop/screens/checkout/checkout_controller.dart';
+import 'package:my_shop/app_components/custom_snackbar.dart';
 import 'package:my_shop/screens/shipping/controllers/shipping_address_details_controller.dart';
 
 import '../../../models/shipping_address.dart';
+import '../../checkout/checkout_controller.dart';
 import '../components/add_new_address_bottom_sheet.dart';
 import '../services/get_all_shiping_address_service.dart';
 
@@ -20,8 +21,10 @@ class ShippingController extends GetxController {
   int? get selectedAddressIndex => _selectedAddressIndex;
   //
 
-  ShippingAddress? get selectedAddress =>
-      selectedAddressIndex == null ? null : shippingAddresses[selectedAddressIndex!];
+  ShippingAddress? get selectedAddress {
+    log('selected index: $selectedAddressIndex');
+    return selectedAddressIndex == null ? null : shippingAddresses[selectedAddressIndex!];
+  }
 
   final RxList<ShippingAddress> shippingAddresses = <ShippingAddress>[].obs;
 
@@ -31,9 +34,9 @@ class ShippingController extends GetxController {
 
   @override
   void onReady() async {
-    await loadAddresses();
+    await fetchAddresses();
 
-    selectInitialAddress();
+    selectDefaultAddress();
     super.onReady();
   }
 
@@ -41,8 +44,7 @@ class ShippingController extends GetxController {
     log('selected address index: $myIndex');
     _selectedAddressIndex = myIndex;
 
-    Get.find<CheckoutController>().setShippingAddress(selectedAddress) ;
-    // shippingAddresses[myIndex];
+    Get.find<CheckoutController>().setShippingAddress(selectedAddress);
 
     update(['selected_address_listener']);
   }
@@ -79,10 +81,14 @@ class ShippingController extends GetxController {
 
   /// this button should appear only when choosing an address
   void onApplyButtonPressed() {
+    if (selectedAddress == null) {
+      CustomSnackBar.showCustomErrorToast(message: 'Choose Shipping Address!'.tr);
+      return;
+    }
     Get.back();
   }
 
-  void selectInitialAddress() {
+  void selectDefaultAddress() {
     if (shippingAddresses.isEmpty) {
       return;
     }
@@ -91,22 +97,23 @@ class ShippingController extends GetxController {
     final defaultAddressIndex = shippingAddresses.indexWhere((address) => address.isDefaultAddress);
 
     if (defaultAddressIndex == -1) {
-      setSelectedAddressIndex(0);
+      return;
     } else {
       setSelectedAddressIndex(defaultAddressIndex);
+      Get.find<CheckoutController>().setShippingAddress(selectedAddress);
     }
   }
 
   /// loads addresses from back-end
-  Future<void> loadAddresses() async {
+  Future<void> fetchAddresses() async {
     isLoading(true);
     final loaddedAddresses = await getAllShippingAddressService();
-    shippingAddresses.clear();
     shippingAddresses.addAll(loaddedAddresses);
     isLoading(false);
   }
 
   Future<void> onRefresh() async {
-    await loadAddresses();
+    shippingAddresses.clear();
+    await fetchAddresses();
   }
 }

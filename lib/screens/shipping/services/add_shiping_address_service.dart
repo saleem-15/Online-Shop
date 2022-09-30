@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
-import 'package:my_shop/models/shipping_address.dart';
 
 import '../../../app_components/constants/api.dart';
 import '../../../app_components/custom_snackbar.dart';
@@ -11,8 +10,8 @@ import '../controllers/shipping_controller.dart';
 
 Future<void> addNewShippingAddressService(String addressName, String address, bool isDefault) async {
   try {
-    final response = await dio.post(
-      addShippingAddress,
+     await dio.post(
+      SHIPPING_ADDRESS_PATH,
       queryParameters: {
         'title': addressName,
         'address': address,
@@ -26,12 +25,12 @@ Future<void> addNewShippingAddressService(String addressName, String address, bo
     //       ShippingAddress(id: '$id', name: addressName, address: address,isDefaultAddress: isDefault),
     //     );
     CustomSnackBar.showCustomSnackBar(
-      message: 'The address was added successfully',
+      message: 'The address was added successfully'.tr,
     );
   } on DioError catch (e) {
     log(e.response!.data.toString());
     CustomSnackBar.showCustomErrorSnackBar(
-      message: formatErrorMsg(e.response!.data['Messages']),
+      message: formatErrorMsg(e.response!.data),
     );
   }
 }

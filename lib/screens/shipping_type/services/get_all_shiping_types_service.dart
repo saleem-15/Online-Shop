@@ -9,10 +9,8 @@ import '../../../app_components/utils/helpers.dart';
 
 Future<List<ShippingType>> getAllShippingTypesService() async {
   try {
-    final response = await dio.get(getAllShippingTypes);
+    final response = await dio.get(SHIPPIN_TYPE_PATH);
     final data = response.data['Data'];
-    log(data.toString());
-    // final dynamic data = [1, 2];
 
     return _converDataToShippingTypes(data as List);
   } on DioError catch (e) {
@@ -26,21 +24,11 @@ Future<List<ShippingType>> getAllShippingTypesService() async {
 
 List<ShippingType> _converDataToShippingTypes(List shippingAddressesData) {
   final List<ShippingType> shippigAddressesList = [];
-  // int count = 0;
 
   for (var addrs in shippingAddressesData) {
     shippigAddressesList.add(
       ShippingType.fromMap(addrs),
     );
-    // shippigAddressesList.add(
-    //   ShippingType(
-    //     id: '${count++}',
-    //     name: '${count++}',
-    //     minArrivalTime: 9,
-    //     maxArrivalTime: 18,
-    //     price: count + 3,
-    //   ),
-    // );
   }
 
   return shippigAddressesList;

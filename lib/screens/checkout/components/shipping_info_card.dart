@@ -52,7 +52,7 @@ class ShippingInfoCard extends GetView<CheckoutController> {
                   log('checkout shipping => isAddressChosen:  ${controller.shippingAddress == null ? 'false' : 'true'}');
                   return controller.shippingAddress == null
                       ? Text(
-                          'Choose Shipping Address',
+                          'Choose Shipping Address'.tr,
                           style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 18),
                         )
                       : Column(

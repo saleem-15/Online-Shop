@@ -8,8 +8,9 @@ const Color lightGrey = Color(0xfff5f5f5);
 
 class LightThemeColors {
   //light swatch
-  // static const Color primaryColor = Color(0xFF40A76A);
   static const Color primaryColor = Color(0xFF101010);
+  static const Color onPrimaryColor = lightGrey;
+  static const Color containerColor = lightGrey; //used on containers
   static const Color secondaryColor = myBlack;
   static const Color accentColor = Color(0xFFD9EDE1);
 
@@ -40,8 +41,12 @@ class LightThemeColors {
   static const Color captionTextColor = Colors.grey;
   static const Color hintTextColor = Color(0xff9e9e9e);
 
+  //Card
+  static const Color CardColor = onPrimaryColor;
+
   //chip
-  static const Color chipBackground = primaryColor;
+  static const Color ChipBackground = myBlack;
+  static const Color selectedChipBackground = myBlack;
   static const Color chipTextColor = Colors.black;
 
   // progress bar indicator
@@ -49,4 +54,9 @@ class LightThemeColors {
 
   // Radio Button
   static const Color radioColor = primaryColor;
+
+  // TextField
+  static const Color textFieldColor = onPrimaryColor;
+  static const Color cursorColor = Colors.black;
+  static const Color textSelectionHandleColor = myBlack;
 }

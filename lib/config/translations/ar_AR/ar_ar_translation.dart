@@ -17,10 +17,11 @@ final Map<String, String> arAR = {
   Strings.color: 'اللون',
   Strings.size: 'الحجم',
   Strings.apply: 'تم',
-  Strings.delete: 'إحذف',
+  Strings.delete: 'حذف',
   // Strings.update: 'حدث',
   Strings.donesuccessfully: 'تمت العملية بنجاح!',
   Strings.error: 'خطأ',
+  Strings.failed: 'فشل',
 
   //auth
   Strings.emailAlreadyUsed: 'الإيميل موجود مسبقا!',
@@ -30,22 +31,37 @@ final Map<String, String> arAR = {
   Strings.colors: 'الألوان',
   Strings.quantity: 'الكمية',
   Strings.addToCart: 'أضف إلى السلة',
+  Strings.chooseSizeFirstMsg: 'إختر الحجم أولا!',
+  Strings.chooseColorFirstMsg: 'إختر اللون أولا!',
 
   //home screen
   Strings.search: 'بحث',
   Strings.categories: 'الأصناف',
 
+  //search screen
+  Strings.found: 'نتيجة',
+  Strings.searchingFor: 'البحث عن',
+  Strings.resultsFor: 'نتائج البحث ل',
+  Strings.noSearchResultMsg:
+      'لم يتم العثور على أي نتائج, الرجاء البحث بكلمة أخرى',
+  Strings.recent: 'مؤخرا',
+
   //cart screen
   Strings.myCart: 'سلتي',
   Strings.totalPrice: 'السعر االاجمالي',
   Strings.checkout: 'التشيك اوت',
+  Strings.empty_cart: 'لا يوجد أي منتجات في السلة',
 
   //orders screen
-  Strings.onGoing: 'الغير مكتملة',
-  Strings.completed: 'المكتملة',
-  Strings.noCompletedOrdersWasFound: 'لا يوجد أي طلبات مكتملة',
-  Strings.noOrdersWasFound: 'لا يوجد أي طلبات',
-  Strings.orderWasAddedMsg: 'تم إاضافة الطلب بنجاح',
+  Strings.onGoing_Orders_Tap_Title: 'الغير مكتملة',
+  Strings.completed_Orders_Tap_Title: 'المكتملة',
+  Strings.no_Completed_Orders_Was_Found: 'لا يوجد أي طلبات مكتملة',
+  Strings.no_Orders_Was_Found: 'لا يوجد أي طلبات',
+  Strings.order_Was_Added_Msg: 'تم إاضافة الطلب بنجاح',
+  Strings.order_processing_status: 'قيد المعالجة',
+  Strings.order_in_delivery_status: 'قيد الشحن',
+  Strings.order_completed_status: 'تم التوصيل',
+  Strings.order_canceled_status: 'ملغي',
 
   //profile screen
   Strings.editProfile: 'تعديل بياناتي',
@@ -65,7 +81,8 @@ final Map<String, String> arAR = {
   Strings.nickName: 'يوزر نيم',
   Strings.email: 'الإيميل',
   Strings.phoneNumber: 'رقم الهاتف',
-  Strings.update: 'تحديث بياناتي',
+  Strings.update: 'تحديث البيانات',
+  Strings.continueUserInfo: 'استمر',
   Strings.userInfoUpdatedSuccessfullyMsg: 'تم تحديث بياناتك بنجاح',
 
   //checkout screen
@@ -93,7 +110,6 @@ final Map<String, String> arAR = {
   Strings.addressWasSetAsDefault: 'تم جعل عنوان الشحن الافتراضي',
   Strings.addressWasUpdated: 'تم تحديث معلومات عنوان الشحن',
   Strings.noAddressesFound: 'لا يوجد أي عنوان شحن',
-  // You dont have any addresses
 
   //add new address dialog
   Strings.addressDetails: 'تفاصيل العنوان',
@@ -102,7 +118,7 @@ final Map<String, String> arAR = {
   Strings.makeAddressAsDefault: 'إجعله العنوان الرئيسي',
 
   //bottom navigation bar
-  Strings.home: 'المنزل',
+  Strings.home: 'الرئيسية',
   Strings.cart: 'السلة',
   Strings.orders: 'الطلبات',
   Strings.profile: 'بروفايل',

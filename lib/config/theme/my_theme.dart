@@ -1,22 +1,33 @@
-// ignore_for_file: deprecated_member_use
-
 import 'package:flutter/material.dart';
+
 import 'package:get/get.dart';
 
-import '../../storage/my_shared_pref.dart';
+import '../../app/storage/my_shared_pref.dart';
 import 'dark_theme_colors.dart';
 import 'light_theme_colors.dart';
 import 'my_styles.dart';
+
+// ignore_for_file: deprecated_member_use
 
 class MyTheme {
   static getThemeData({required bool isLight}) {
     return ThemeData(
       // useMaterial3: true,
       // main color (app bar,tabs..etc)
-      colorScheme: const ColorScheme.light().copyWith(
-        primary: myBlack,
-        secondary: Colors.grey,
-      ),
+      colorScheme: isLight
+          ? const ColorScheme.light().copyWith(
+              primary: myBlack,
+              onPrimary: LightThemeColors.onPrimaryColor,
+              primaryContainer: LightThemeColors.containerColor,
+              secondary: Colors.grey,
+            )
+          : const ColorScheme.dark().copyWith(
+              primary: DarkThemeColors.primaryColor,
+              onPrimary: DarkThemeColors.onPrimaryColor,
+              primaryContainer: DarkThemeColors.containerColor,
+              secondary: DarkThemeColors.accentColor,
+              // secondary: Colors.grey,
+            ),
 
       primaryColor: isLight ? LightThemeColors.primaryColor : DarkThemeColors.primaryColor,
       // secondary color (for checkbox,float button, radio..etc)
@@ -61,26 +72,23 @@ class MyTheme {
 
       // textField theme
       inputDecorationTheme: MyStyles.getInputDecorationTheme(isLightTheme: isLight),
-
+      textSelectionTheme: MyStyles.getTextSelectionTheme(isLightTheme: isLight),
       //dialog
       dialogTheme: MyStyles.getDialogTheme(isLightTheme: isLight),
 
+      popupMenuTheme: MyStyles.getPopupMenuThemeTheme(isLightTheme: isLight),
+
       //checkBox
-      checkboxTheme: MyStyles.getCheckBoxStyle(),
+      checkboxTheme: MyStyles.getCheckBoxStyle(isLightTheme: isLight),
     );
   }
 
-  /// update app theme and save theme type to shared pref
+  /// update app theme and save theme mode to shared pref
   /// (so when the app is killed and up again theme will remain the same)
-  static changeTheme() {
-    // *) check if the current theme is light (default is light)
-    bool isLightTheme = MySharedPref.getThemeIsLight();
-    // *) store the new theme mode on get storage
-    MySharedPref.setThemeIsLight(!isLightTheme);
-    // *) let GetX change theme
-    Get.changeThemeMode(!isLightTheme ? ThemeMode.light : ThemeMode.dark);
-  }
+  static changeTheme(ThemeMode themeMode) {
+    /// store the new theme mode on get storage
+    MySharedPref.setThemeMode(themeMode);
 
-  /// check if the theme is light or dark
-  bool get getThemeIsLight => MySharedPref.getThemeIsLight();
+    Get.changeThemeMode(themeMode);
+  }
 }

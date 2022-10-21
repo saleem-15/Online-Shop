@@ -1,4 +1,0 @@
-enum OrderStatus {
-  inDelievery,
-  completed,
-}

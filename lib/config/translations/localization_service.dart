@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+
 import 'package:get/get.dart';
 
-import '../../storage/my_shared_pref.dart';
+import '../../app/storage/my_shared_pref.dart';
 import 'ar_AR/ar_ar_translation.dart';
 import 'en_US/en_us_translation.dart';
 
@@ -29,11 +30,11 @@ class LocalizationService extends Translations {
       };
 
   /// check if the language is supported
-  static bool isLanguageSupported(String languageCode) => supportedLanguages.keys.contains(languageCode);
+  static bool isLanguageSupported(String languageCode) =>
+      supportedLanguages.keys.contains(languageCode);
 
   /// update app language by code language for example (en,ar..etc)
   static Future<void> changeLanguage(String languageCode) async {
-    
     assert(isLanguageSupported(languageCode), languageCode);
 
     // update current language in shared pref
@@ -42,7 +43,8 @@ class LocalizationService extends Translations {
   }
 
   /// check if the language is english
-  static bool isItEnglish() => MySharedPref.getCurrentLocal().languageCode.toLowerCase().contains('en');
+  static bool isItEnglish() =>
+      MySharedPref.getCurrentLocal().languageCode.toLowerCase().contains('en');
 
   /// get current locale
   static Locale getCurrentLocal() => MySharedPref.getCurrentLocal();

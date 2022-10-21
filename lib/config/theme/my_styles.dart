@@ -4,14 +4,16 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'dark_theme_colors.dart';
-import 'my_fonts.dart';
 import 'light_theme_colors.dart';
+import 'my_fonts.dart';
 
 class MyStyles {
   ///icons theme
   static IconThemeData getIconTheme({required bool isLightTheme}) => IconThemeData(
         color: isLightTheme ? LightThemeColors.iconColor : DarkThemeColors.iconColor,
       );
+
+  //tab Bar
   static TabBarTheme getTabBarTheme({required bool isLightTheme}) => TabBarTheme(
         indicator: BoxDecoration(
           color: isLightTheme ? LightThemeColors.primaryColor : DarkThemeColors.primaryColor,
@@ -20,9 +22,9 @@ class MyStyles {
 
   ///app bar theme
   static AppBarTheme getAppBarTheme({required bool isLightTheme}) => AppBarTheme(
-        systemOverlayStyle: const SystemUiOverlayStyle(
-          statusBarIconBrightness: Brightness.dark,
-          statusBarColor: Colors.transparent,
+        systemOverlayStyle: SystemUiOverlayStyle(
+          statusBarIconBrightness: isLightTheme ? Brightness.dark : Brightness.light,
+          statusBarColor: isLightTheme ? LightThemeColors.appBarColor : DarkThemeColors.appbarColor,
         ),
         elevation: 0,
         titleTextStyle: getTextTheme(isLightTheme: isLightTheme).bodyText1!.copyWith(
@@ -87,11 +89,12 @@ class MyStyles {
   // Chip theme
   static ChipThemeData getChipTheme({required bool isLightTheme}) {
     return ChipThemeData(
-      backgroundColor: Colors.transparent,
-      brightness: Brightness.light,
+      backgroundColor: isLightTheme ? Colors.transparent : DarkThemeColors.chipBackground,
+      brightness: isLightTheme ? Brightness.light : Brightness.dark,
       labelStyle: getChipTextStyle(isLightTheme: isLightTheme),
       secondaryLabelStyle: getChipTextStyle(isLightTheme: isLightTheme).copyWith(color: Colors.white),
-      selectedColor: myBlack,
+      selectedColor:
+          isLightTheme ? LightThemeColors.selectedChipBackground : DarkThemeColors.selectedChipBackground,
       disabledColor: Colors.white,
       padding: const EdgeInsets.all(5),
       shape: RoundedRectangleBorder(
@@ -176,50 +179,66 @@ class MyStyles {
         ),
       );
 
+  // radio button
   static getRadioButtonTheme({required bool isLightTheme}) => RadioThemeData(
         fillColor: MaterialStateProperty.all<Color>(
           isLightTheme ? LightThemeColors.radioColor : DarkThemeColors.radioColor,
         ),
       );
 
+  //divider
   static getDividerTheme({required bool isLightTheme}) => DividerThemeData(
         color: isLightTheme ? LightThemeColors.dividerColor : DarkThemeColors.dividerColor,
       );
 
+  //Text Field
   static getInputDecorationTheme({required bool isLightTheme}) => InputDecorationTheme(
         filled: true,
-        fillColor: lightGrey,
+        fillColor: isLightTheme ? LightThemeColors.textFieldColor : DarkThemeColors.textFieldColor,
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(13.r),
-          borderSide: const BorderSide(color: lightGrey, width: 1.5),
+          borderSide: BorderSide.none,
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(13.r),
-          borderSide: const BorderSide(color: lightGrey, width: 1.5),
+          borderSide: BorderSide.none,
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(13.r),
-          borderSide: const BorderSide(color: lightGrey, width: 1.5),
+          borderSide: BorderSide.none,
         ),
         focusedErrorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(13.r),
-          borderSide: const BorderSide(color: lightGrey, width: 1.5),
+          borderSide: BorderSide.none,
         ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(13.r),
-          borderSide: const BorderSide(color: lightGrey, width: 1.5),
+          borderSide: BorderSide.none,
         ),
       );
 
+  //dialog
   static getDialogTheme({required bool isLightTheme}) => DialogTheme(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20.r),
         ),
       );
+  //dialog
+  static getBottomSheetTheme({required bool isLightTheme}) => BottomSheetThemeData(
+        clipBehavior: Clip.antiAlias,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20.r),
+        ),
+      );
+
+  //pop menu
+  static getPopupMenuThemeTheme({required bool isLightTheme}) => PopupMenuThemeData(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.r)),
+      );
 
   //*************************** My Custom Styles For a Specific Use Cases  ***********************************
 
-  static ButtonStyle getGreyElevatedButtonStyle() => ButtonStyle(
+  static ButtonStyle getGreyElevatedButtonStyle({required bool isLightTheme}) => ButtonStyle(
         backgroundColor: MaterialStateProperty.all(const Color(0xffe7e7e7)),
         elevation: MaterialStateProperty.all(0),
         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
@@ -233,7 +252,7 @@ class MyStyles {
           (MyFonts.bodyTextStyle).copyWith(
             fontWeight: FontWeight.bold,
             fontSize: MyFonts.body1TextSize,
-            color: LightThemeColors.bodyTextColor,
+            color: isLightTheme ? LightThemeColors.bodyTextColor : DarkThemeColors.bodyTextColor,
           ),
         ),
       );
@@ -255,10 +274,22 @@ class MyStyles {
         ),
       );
 
-  static CheckboxThemeData getCheckBoxStyle() => CheckboxThemeData(
-        fillColor: MaterialStateProperty.all(myBlack),
+  // checkBox
+  static CheckboxThemeData getCheckBoxStyle({required bool isLightTheme}) => CheckboxThemeData(
+        fillColor: MaterialStateProperty.all(isLightTheme ? myBlack : DarkThemeColors.onPrimaryColor),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(6),
         ),
+      );
+
+  //text selection
+  static TextSelectionThemeData getTextSelectionTheme({required bool isLightTheme}) => TextSelectionThemeData(
+        cursorColor: isLightTheme ? LightThemeColors.cursorColor : DarkThemeColors.cursorColor,
+        selectionHandleColor: isLightTheme
+            ? LightThemeColors.textSelectionHandleColor
+            : DarkThemeColors.textSelectionHandleColor,
+        selectionColor: isLightTheme
+            ? null // if light theme let the framework decide the color
+            : DarkThemeColors.selectedTextColor,
       );
 }

@@ -18,9 +18,9 @@ const Map<String, String> enUs = {
   Strings.size: 'Size',
   Strings.apply: 'Apply',
   Strings.delete: 'Delete',
-  Strings.update: 'Update',
   Strings.donesuccessfully: 'Done successfully!',
   Strings.error: 'Error',
+  Strings.failed: 'Failed',
 
   //auth
   Strings.emailAlreadyUsed: 'The email is already being used !',
@@ -30,22 +30,37 @@ const Map<String, String> enUs = {
   Strings.colors: 'Colors',
   Strings.quantity: 'Quantity',
   Strings.addToCart: 'Add to cart',
+  Strings.chooseSizeFirstMsg: 'You have to choose the size first',
+  Strings.chooseColorFirstMsg: 'You have to choose the color first',
 
   //home screen
   Strings.search: 'Search',
   Strings.categories: 'categories',
 
+  //search screen
+  Strings.found: 'found',
+  Strings.searchingFor: 'Searching for',
+  Strings.resultsFor: 'Results for',
+  Strings.noSearchResultMsg:
+      'Sorry, The keyword you entered cannot be found, please search with another keyword.',
+  Strings.recent: 'Recent',
+
   //cart screen
   Strings.myCart: 'My Cart',
   Strings.totalPrice: 'Total Price',
   Strings.checkout: 'Checkout',
+  Strings.empty_cart: 'you dont have any cart items',
 
   //orders screen
-  Strings.onGoing: 'Checkout',
-  Strings.completed: 'Checkout',
-  Strings.noCompletedOrdersWasFound: 'No Completed Orders was Found',
-  Strings.noOrdersWasFound: 'No Orders was Found',
-  Strings.orderWasAddedMsg: 'The order was added successfully',
+  Strings.onGoing_Orders_Tap_Title: 'onGoing',
+  Strings.completed_Orders_Tap_Title: 'Completed',
+  Strings.no_Completed_Orders_Was_Found: 'No Completed Orders was Found',
+  Strings.no_Orders_Was_Found: 'No Orders was Found',
+  Strings.order_Was_Added_Msg: 'The order was added successfully',
+  Strings.order_processing_status: 'Processing',
+  Strings.order_in_delivery_status: 'inDelievery',
+  Strings.order_completed_status: 'Completed',
+  Strings.order_canceled_status: 'Canceled',
 
   //profile screen
   Strings.editProfile: 'Edit Profile',
@@ -65,7 +80,11 @@ const Map<String, String> enUs = {
   Strings.nickName: 'Nickname',
   Strings.email: 'Email',
   Strings.phoneNumber: 'Phone Number',
-  Strings.userInfoUpdatedSuccessfullyMsg: 'Your info has been updated successfully',
+  Strings.update: 'Update',
+  Strings.continueUserInfo: 'Continue',
+
+  Strings.userInfoUpdatedSuccessfullyMsg:
+      'Your info has been updated successfully',
 
   //checkout screen
   Strings.successPurshaseMsg: 'The order was purshased successfully!',

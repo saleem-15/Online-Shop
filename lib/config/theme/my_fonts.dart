@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../storage/my_shared_pref.dart';
+import '../../app/storage/my_shared_pref.dart';
 import '../translations/localization_service.dart';
 
 class MyFonts {
   // return the right font depending on app language
   static TextStyle get getAppFontType =>
-      LocalizationService.supportedLanguagesFontsFamilies[MySharedPref.getCurrentLocal().languageCode]!;
+      LocalizationService.supportedLanguagesFontsFamilies[
+          MySharedPref.getCurrentLocal().languageCode]!;
 
   // headlines text font
   static TextStyle get headlineTextStyle => getAppFontType;

@@ -19,29 +19,26 @@ dependencies:
   get: ^4.6.5
   get_storage: ^2.0.3
   flutter_screenutil: ^5.5.3+2
-  flutter_staggered_grid_view: ^0.6.2
-  transparent_image: ^2.0.0
   shimmer: ^2.0.0
-  pixel_perfect: ^1.1.1
   im_stepper: ^1.0.1+1
   carousel_slider: ^4.1.1
   flutter_image_slideshow: ^0.1.4
-  expand_tap_area: ^1.1.1
   lottie: ^1.4.2
   intl: ^0.17.0
   image_picker: ^0.8.5+3
-  http: ^0.13.5
   dio: ^4.0.6
-  path_provider: ^2.0.11
-  device_info_plus: ^4.1.2
   infinite_scroll_pagination: ^3.2.0
-  connectivity_plus: ^2.3.7
+
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
+
   flutter_lints: ^2.0.0
+    
+    
+  
 
 flutter:
   uses-material-design: true
